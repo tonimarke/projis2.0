@@ -2,40 +2,24 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('enderecos', {
+    await queryInterface.createTable('telefones', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      cep:{
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      logradouro:{
+      tipo:{
         type:Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
       }, 
       numero:{
         type: Sequelize.STRING,
         allowNull: false,
       },
-      bairro:{
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      complemento:{
+      descricao: {
         type: Sequelize.STRING,
         allowNull: true,
-      },
-      cidade:{
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      estado: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       // timestamps
       createdAt: Sequelize.DATE,
@@ -44,6 +28,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('enderecos');
+    await queryInterface.dropTable('telefones');
   }
 };
