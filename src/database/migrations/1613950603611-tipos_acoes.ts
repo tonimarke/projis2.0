@@ -13,7 +13,7 @@ export class tiposAcoes1613950603611 implements MigrationInterface {
                     generationStrategy: 'uuid',
                 },
                 {
-                    name: 'tipo_acao',
+                    name: 'nome',
                     type: 'varchar',
                     isNullable: false,
                 },
@@ -37,6 +37,6 @@ export class tiposAcoes1613950603611 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('tipos_bens_imoveis')
+        await queryRunner.dropTable('tipos_acoes')
     }
 }

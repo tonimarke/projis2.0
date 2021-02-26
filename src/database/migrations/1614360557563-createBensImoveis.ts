@@ -1,10 +1,10 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class tiposBensMoveis1613950282495 implements MigrationInterface {
+export class createBensImoveis1614360557563 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable( new Table({
-            name:'tipos_bens_moveis',
+            name:'bens_imoveis',
             columns: [
                 {
                     name: 'id',
@@ -18,8 +18,13 @@ export class tiposBensMoveis1613950282495 implements MigrationInterface {
                     isNullable: false,
                 },
                 {
-                    name: 'bem_movel_id',
+                    name: 'tipo_id',
                     type: 'uuid',
+                    isNullable: false,
+                },
+                {
+                    name: 'quantidade',
+                    type: 'decimal',
                     isNullable: false,
                 },
                 {
@@ -32,13 +37,22 @@ export class tiposBensMoveis1613950282495 implements MigrationInterface {
                     type: 'timestamp',
                     default: 'now()'
                 }
+            ],
+            foreignKeys: [
+                {
+                    name: 'fk_bem_imovel_tipo_id',
+                    columnNames: ['tipo_id'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'tipos_bens_imoveis',
+                    onDelete: 'CASCADE',
+                    onUpdate: 'CASCADE',
+                }
             ]
         }))
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('tipos_bens_moveis')
+        await queryRunner.dropForeignKey('bens_imoveis', 'fk_bem_imovel_tipo_bem_imovel')
+        await queryRunner.dropTable('bens_imoveis')
     }
-
 }
-
