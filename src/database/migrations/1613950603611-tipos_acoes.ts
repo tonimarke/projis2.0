@@ -13,7 +13,7 @@ export class tiposAcoes1613950603611 implements MigrationInterface {
                     generationStrategy: 'uuid',
                 },
                 {
-                    name: 'tipo_acao',
+                    name: 'nome',
                     type: 'varchar',
                     isNullable: false,
                 },
