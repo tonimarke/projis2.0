@@ -11,6 +11,7 @@ export default class pessoas1614693642373 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           // Pessoas
           {

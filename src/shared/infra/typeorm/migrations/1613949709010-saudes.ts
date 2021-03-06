@@ -1,35 +1,41 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class telefones1614734281894 implements MigrationInterface {
+export default class saudes1613949709010 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'telefones',
+        name: 'saudes',
         columns: [
           {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           {
-            name: 'tipo',
+            name: 'interdidato',
             type: 'varchar',
             isNullable: true,
           },
           {
-            name: 'numero',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'descricao',
+            name: 'curador/tutor',
             type: 'varchar',
             isNullable: true,
           },
           {
-            name: 'pessoa_id',
-            type: 'uuid',
+            name: 'medicamentos',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'redePublica',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'observações',
+            type: 'varchar',
             isNullable: true,
           },
           {
@@ -43,22 +49,11 @@ export default class telefones1614734281894 implements MigrationInterface {
             default: 'now()',
           },
         ],
-        foreignKeys: [
-          {
-            name: 'fk_telefone_pessoa',
-            columnNames: ['pessoa_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'pessoas',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-          },
-        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('telefones', 'fk_telefone_pessoa');
-    await queryRunner.dropTable('telefones');
+    await queryRunner.dropTable('saudes');
   }
 }

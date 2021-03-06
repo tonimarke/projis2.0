@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity('estados_civis')
-class Estado_civil {
+class EstadoCivil {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,4 +21,4 @@ class Estado_civil {
   updated_at: Date;
 }
 
-export default Estado_civil;
+export default EstadoCivil;

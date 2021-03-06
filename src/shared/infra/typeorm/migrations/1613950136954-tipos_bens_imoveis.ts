@@ -1,41 +1,28 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class saudes1613949709010 implements MigrationInterface {
+export default class tiposBensImoveis1613950136954
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'saudes',
+        name: 'tipos_bens_imoveis',
         columns: [
           {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           {
-            name: 'interdidato',
+            name: 'nome',
             type: 'varchar',
-            isNullable: true,
+            isNullable: false,
           },
           {
-            name: 'curador/tutor',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'medicamentos',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'redePublica',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'observações',
-            type: 'varchar',
-            isNullable: true,
+            name: 'bem_imovel_id',
+            type: 'uuid',
+            isNullable: false,
           },
           {
             name: 'created_at',
@@ -53,6 +40,6 @@ export default class saudes1613949709010 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('saudes');
+    await queryRunner.dropTable('tipos_bens_imoveis');
   }
 }
