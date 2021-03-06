@@ -11,6 +11,7 @@ export default class membroFamilia1614816179433 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           {
             name: 'nome',

@@ -11,6 +11,7 @@ export default class prontuarios1614738245603 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           {
             name: 'acao_id',

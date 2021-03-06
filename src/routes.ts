@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
+import estadoCivilRouter from './modules/estado-civil/infra/http/routes/EstadoCivil.routes';
+
 const routes = Router();
 
-routes.get('/', (request, response) =>
-  response.json({ message: 'Hello World' }),
-);
+routes.use('/', estadoCivilRouter);
 
 export default routes;

@@ -8,12 +8,14 @@
   "scripts": {
     "dev": "NODE_ENV=dev ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "NODE_ENV=production tsc --target ES5 --experimentalDecorators --emitDecoratorMetadata",
+    "start": "node ./dist/server.js",
     "typeorm": "NODE_ENV=dev ts-node-dev ./node_modules/typeorm/cli.js",
     "lint": "eslint --fix --ext .ts ."
   },
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "pg": "^8.5.1",
     "typeorm": "^0.2.31",
     "uuid": "^8.3.2"

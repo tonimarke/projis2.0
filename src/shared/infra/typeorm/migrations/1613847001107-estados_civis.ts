@@ -11,6 +11,7 @@ export default class estadosCivis1613847001107 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           {
             name: 'estado_civil',
