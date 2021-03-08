@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 
 import CreateEstadoCivilService from '../../../services/CreateEstadoCivilService';
-import DeleteEstadoCivilService from '../../../services/DeleteEstadoCivilService';
 import FindAllEstadoCivilService from '../../../services/FindAllEstadoCivilService';
 import FindOneEstadoCivilService from '../../../services/FindOneEstadoCivilService';
 import UpdateEstadoCivilService from '../../../services/UpdateEstadoCivilService';
+import DeleteEstadoCivilService from '../../../services/DeleteEstadoCivilService';
 
 import EstadoCivilRepository from '../../typeorm/repositories/EstadoCivilRepository';
 

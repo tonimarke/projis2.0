@@ -13,7 +13,7 @@ class FindOneEstadoCivilService {
     const estado = await this.estadoCivilRepository.findById(id);
 
     if (!estado) {
-      throw new AppError('Estado civil não exist', 404);
+      throw new AppError('Marital status does not exist', 404);
     }
 
     return estado;

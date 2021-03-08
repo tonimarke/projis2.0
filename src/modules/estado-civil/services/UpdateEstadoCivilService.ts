@@ -21,7 +21,7 @@ class UpdateEstadoCivilService {
     const estado = await this.estadoCivilRepository.findById(id);
 
     if (!estado) {
-      throw new AppError('Estado civil não existe', 404);
+      throw new AppError('Marital status does not exist', 404);
     }
 
     estado.estado_civil = estado_civil;

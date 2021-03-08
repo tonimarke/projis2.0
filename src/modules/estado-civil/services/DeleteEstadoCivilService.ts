@@ -14,7 +14,7 @@ class DeleteEstadoCivilService {
     );
 
     if (!checkExistMaritalStatus) {
-      throw new AppError('Estado civil não existe');
+      throw new AppError('Marital status does not exist', 404);
     }
 
     const estado = await this.estadoCivilRepository.delete(id);
