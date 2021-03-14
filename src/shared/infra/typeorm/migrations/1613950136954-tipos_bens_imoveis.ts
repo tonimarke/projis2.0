@@ -20,11 +20,6 @@ export default class tiposBensImoveis1613950136954
             isNullable: false,
           },
           {
-            name: 'bem_imovel_id',
-            type: 'uuid',
-            isNullable: false,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
