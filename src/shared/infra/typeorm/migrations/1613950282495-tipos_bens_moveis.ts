@@ -20,11 +20,6 @@ export default class tiposBensMoveis1613950282495
             isNullable: false,
           },
           {
-            name: 'bem_movel_id',
-            type: 'uuid',
-            isNullable: false,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

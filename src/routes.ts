@@ -6,6 +6,7 @@ import orcamentoFamiliarRouter from './modules/orcamento-familiar/infra/http/rou
 import habitacaoRouter from './modules/habitacao/infra/http/routes/Habitacao.routes';
 import saudeRouter from './modules/saude/infra/http/routes/Saude.routes';
 import tipoBemImovelRouter from './modules/tipo-bem-imovel/infra/http/routes/TipoBemImovel.routes';
+import tipoBemMovelRouter from './modules/tipo-bem-movel/infra/http/routes/TipoBemMovel.routes';
 
 const routes = Router();
 
@@ -15,5 +16,6 @@ routes.use('/', orcamentoFamiliarRouter);
 routes.use('/', habitacaoRouter);
 routes.use('/', saudeRouter);
 routes.use('/', tipoBemImovelRouter);
+routes.use('/', tipoBemMovelRouter);
 
 export default routes;
