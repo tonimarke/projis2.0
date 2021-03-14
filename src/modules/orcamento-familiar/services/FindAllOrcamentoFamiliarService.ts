@@ -9,7 +9,7 @@ class FindAllOrcamentoFamiliarService {
     this.orcamentoFamiliarRepository = orcamentoFamiliarRepository;
   }
 
-  public async execute(): Promise<OrcamentoFamiliar[] | undefined> {
+  public async execute(): Promise<OrcamentoFamiliar[]> {
     const orcamentoFamiliar = await this.orcamentoFamiliarRepository.findAll();
 
     if (!orcamentoFamiliar) {

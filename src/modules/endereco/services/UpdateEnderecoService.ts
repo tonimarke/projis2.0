@@ -29,7 +29,7 @@ class UpdateEnderecoService {
     cep,
     cidade,
     estado,
-  }: IRequest): Promise<Endereco | undefined> {
+  }: IRequest): Promise<Endereco> {
     const endereco = await this.enderecoRepository.findById(id);
 
     if (!endereco) {

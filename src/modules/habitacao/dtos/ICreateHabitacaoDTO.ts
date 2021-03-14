@@ -1,4 +1,4 @@
-export interface ICreateHabitacaoDTO {
+export default interface ICreateHabitacaoDTO {
   situacao: string;
   valor_aluguel: number;
   quantidade_dormitorios: number;

@@ -9,7 +9,7 @@ class FindOneEnderecoService {
     this.enderecoRepository = enderecoRepository;
   }
 
-  public async execute(id: string): Promise<Endereco | undefined> {
+  public async execute(id: string): Promise<Endereco> {
     const endereco = await this.enderecoRepository.findById(id);
 
     if (!endereco) {

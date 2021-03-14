@@ -1,6 +1,6 @@
 import ICreateOrcamentoFamiliarDTO from '../dtos/ICreateOrcamentoFamiliarDTO';
-import OrcamentoFamiliar from '../infra/typeorm/entities/OrcamentoFamiliar';
 import IOrcamentoFamiliarRepository from '../repositories/IOrcamentoFamiliarRepository';
+import OrcamentoFamiliar from '../infra/typeorm/entities/OrcamentoFamiliar';
 
 class CreateOrcamentoFamiliarService {
   private orcamentoFamiliarRepository: IOrcamentoFamiliarRepository;

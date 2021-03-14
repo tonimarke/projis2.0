@@ -1,4 +1,4 @@
-import { ICreateHabitacaoDTO } from '../dtos/ICreateHabitacaoDTO';
+import ICreateHabitacaoDTO from '../dtos/ICreateHabitacaoDTO';
 import Habitacao from '../infra/typeorm/entities/Habitacao';
 
 export default interface IHabitacaoRepository {

@@ -9,11 +9,11 @@ class DeleteEstadoCivilService {
   }
 
   public async execute(id: string): Promise<string> {
-    const checkExistMaritalStatus = await this.estadoCivilRepository.findById(
+    const checkMaritalStatusExist = await this.estadoCivilRepository.findById(
       id,
     );
 
-    if (!checkExistMaritalStatus) {
+    if (!checkMaritalStatusExist) {
       throw new AppError('Marital status does not exist', 404);
     }
 

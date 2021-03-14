@@ -14,21 +14,18 @@ class UpdateEstadoCivilService {
     this.estadoCivilRepository = estadoCilRepository;
   }
 
-  public async execute({
-    id,
-    estado_civil,
-  }: IRequest): Promise<EstadoCivil | undefined> {
-    const estado = await this.estadoCivilRepository.findById(id);
+  public async execute({ id, estado_civil }: IRequest): Promise<EstadoCivil> {
+    const estadoCivil = await this.estadoCivilRepository.findById(id);
 
-    if (!estado) {
+    if (!estadoCivil) {
       throw new AppError('Marital status does not exist', 404);
     }
 
-    estado.estado_civil = estado_civil;
+    estadoCivil.estado_civil = estado_civil;
 
-    await this.estadoCivilRepository.save(estado);
+    await this.estadoCivilRepository.save(estadoCivil);
 
-    return estado;
+    return estadoCivil;
   }
 }
 

@@ -1,6 +1,6 @@
-import { ICreateHabitacaoDTO } from '../dtos/ICreateHabitacaoDTO';
-import Habitacao from '../infra/typeorm/entities/Habitacao';
+import ICreateHabitacaoDTO from '../dtos/ICreateHabitacaoDTO';
 import IHabitacaoRepository from '../repositories/IHabitacaoRepository';
+import Habitacao from '../infra/typeorm/entities/Habitacao';
 
 class CreateHabitacaoService {
   private habitacaoRepository: IHabitacaoRepository;

@@ -9,14 +9,14 @@ class FindOneEstadoCivilService {
     this.estadoCivilRepository = estadoCilRepository;
   }
 
-  public async execute(id: string): Promise<EstadoCivil | undefined> {
-    const estado = await this.estadoCivilRepository.findById(id);
+  public async execute(id: string): Promise<EstadoCivil> {
+    const estadosCivis = await this.estadoCivilRepository.findById(id);
 
-    if (!estado) {
+    if (!estadosCivis) {
       throw new AppError('Marital status does not exist', 404);
     }
 
-    return estado;
+    return estadosCivis;
   }
 }
 

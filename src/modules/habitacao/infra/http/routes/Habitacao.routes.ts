@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import HabitacaoController from '../controllers/HabitacaoController';
 
 const habitacaoRouter = Router();

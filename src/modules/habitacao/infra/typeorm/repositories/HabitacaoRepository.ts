@@ -1,5 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
-import { ICreateHabitacaoDTO } from '../../../dtos/ICreateHabitacaoDTO';
+import ICreateHabitacaoDTO from '../../../dtos/ICreateHabitacaoDTO';
 import IHabitacaoRepository from '../../../repositories/IHabitacaoRepository';
 import Habitacao from '../entities/Habitacao';
 

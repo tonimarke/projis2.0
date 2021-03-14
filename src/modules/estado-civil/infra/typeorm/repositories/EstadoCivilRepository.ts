@@ -1,7 +1,5 @@
 import { getRepository, Repository, Like } from 'typeorm';
-
 import IEstadoCivilRepository from '../../../repositories/IEstadoCivilRepository';
-
 import EstadoCivil from '../entities/EstadoCivil';
 
 class EstadoCivilRepository implements IEstadoCivilRepository {

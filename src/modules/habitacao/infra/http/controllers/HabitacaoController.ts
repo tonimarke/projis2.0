@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
+
 import CreateHabitacaoService from '../../../services/CreateHabitacaoService';
-import DeleteHabitacaoService from '../../../services/DeleteHabitacaoService';
-import FindAllHabitacaoService from '../../../services/FindAllHabitacaoService';
 import FindOneHabitacaoService from '../../../services/FindOneHabitacaoService';
+import FindAllHabitacaoService from '../../../services/FindAllHabitacaoService';
 import UpdateHabitacaoService from '../../../services/UpdateHabitacaoService';
+import DeleteHabitacaoService from '../../../services/DeleteHabitacaoService';
+
 import HabitacaoRepository from '../../typeorm/repositories/HabitacaoRepository';
 
 class HabitacaoController {

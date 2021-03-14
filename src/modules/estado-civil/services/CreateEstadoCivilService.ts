@@ -1,6 +1,6 @@
 import AppError from '../../../shared/error/AppError';
-import EstadoCivil from '../infra/typeorm/entities/EstadoCivil';
 import IEstadoCivilRepository from '../repositories/IEstadoCivilRepository';
+import EstadoCivil from '../infra/typeorm/entities/EstadoCivil';
 
 class CreateEstadoCivilService {
   private estadoCivilRepository: IEstadoCivilRepository;
