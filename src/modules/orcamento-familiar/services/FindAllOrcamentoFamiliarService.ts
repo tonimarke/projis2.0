@@ -12,7 +12,7 @@ class FindAllOrcamentoFamiliarService {
   public async execute(): Promise<OrcamentoFamiliar[]> {
     const orcamentoFamiliar = await this.orcamentoFamiliarRepository.findAll();
 
-    if (!orcamentoFamiliar) {
+    if (!orcamentoFamiliar?.length) {
       throw new AppError('Family budget does not exist', 404);
     }
 

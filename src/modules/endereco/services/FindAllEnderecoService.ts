@@ -12,7 +12,7 @@ class FindAllEnderecoService {
   public async execute(): Promise<Endereco[]> {
     const enderecoes = await this.enderecoRepository.findAll();
 
-    if (!enderecoes) {
+    if (!enderecoes?.length) {
       throw new AppError('Address does not exist', 404);
     }
 

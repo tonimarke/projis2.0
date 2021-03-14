@@ -12,7 +12,7 @@ class FindAllHabitacaoService {
   public async execute(): Promise<Habitacao[]> {
     const habitacoes = await this.habitacaoRepository.findAll();
 
-    if (!habitacoes) {
+    if (!habitacoes?.length) {
       throw new AppError('habitation does not exist', 404);
     }
 

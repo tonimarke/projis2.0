@@ -14,29 +14,29 @@ export default class saudes1613949709010 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'interdidato',
+            name: 'interditado',
             type: 'varchar',
-            isNullable: true,
+            isNullable: false,
           },
           {
-            name: 'curador/tutor',
+            name: 'curador_tutor',
             type: 'varchar',
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: 'medicamentos',
             type: 'varchar',
-            isNullable: true,
+            isNullable: false,
           },
           {
-            name: 'redePublica',
+            name: 'rede_publica',
             type: 'varchar',
-            isNullable: true,
+            isNullable: false,
           },
           {
-            name: 'observações',
+            name: 'observacoes',
             type: 'varchar',
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: 'created_at',

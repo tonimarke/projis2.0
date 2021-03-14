@@ -12,7 +12,7 @@ class FindAllEstadoCivilService {
   public async execute(): Promise<EstadoCivil[]> {
     const estadoscivis = await this.estadoCivilRepository.findAll();
 
-    if (!estadoscivis) {
+    if (!estadoscivis?.length) {
       throw new AppError('Marital status does not exist', 404);
     }
 
