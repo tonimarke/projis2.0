@@ -7,6 +7,7 @@ import habitacaoRouter from './modules/habitacao/infra/http/routes/Habitacao.rou
 import saudeRouter from './modules/saude/infra/http/routes/Saude.routes';
 import tipoBemImovelRouter from './modules/tipo-bem-imovel/infra/http/routes/TipoBemImovel.routes';
 import tipoBemMovelRouter from './modules/tipo-bem-movel/infra/http/routes/TipoBemMovel.routes';
+import tipoAcaoRouter from './modules/tipo-acao/infra/http/routes/TipoAcao.routes';
 
 const routes = Router();
 
@@ -17,5 +18,6 @@ routes.use('/', habitacaoRouter);
 routes.use('/', saudeRouter);
 routes.use('/', tipoBemImovelRouter);
 routes.use('/', tipoBemMovelRouter);
+routes.use('/', tipoAcaoRouter);
 
 export default routes;
