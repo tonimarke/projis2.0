@@ -20,13 +20,13 @@ export default class createBensImoveis1614360557563
             isNullable: false,
           },
           {
-            name: 'tipo_id',
-            type: 'uuid',
+            name: 'quantidade',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'quantidade',
-            type: 'decimal',
+            name: 'tipo_bem_imovel_id',
+            type: 'uuid',
             isNullable: false,
           },
           {
@@ -42,11 +42,11 @@ export default class createBensImoveis1614360557563
         ],
         foreignKeys: [
           {
-            name: 'fk_bem_imovel_tipo_id',
-            columnNames: ['tipo_id'],
-            referencedColumnNames: ['id'],
+            name: 'fk_tipo_bem_imovel',
             referencedTableName: 'tipos_bens_imoveis',
-            onDelete: 'CASCADE',
+            referencedColumnNames: ['id'],
+            columnNames: ['tipo_bem_imovel_id'],
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
         ],
@@ -55,10 +55,6 @@ export default class createBensImoveis1614360557563
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey(
-      'bens_imoveis',
-      'fk_bem_imovel_tipo_bem_imovel',
-    );
     await queryRunner.dropTable('bens_imoveis');
   }
 }
