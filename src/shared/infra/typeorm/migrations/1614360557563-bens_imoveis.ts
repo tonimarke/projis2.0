@@ -20,8 +20,13 @@ export default class createBensImoveis1614360557563
             isNullable: false,
           },
           {
-            name: 'quantidade',
+            name: 'valor',
             type: 'decimal',
+            isNullable: false,
+          },
+          {
+            name: 'quantidade',
+            type: 'int',
             isNullable: false,
           },
           {
@@ -42,7 +47,7 @@ export default class createBensImoveis1614360557563
         ],
         foreignKeys: [
           {
-            name: 'fk_tipo_bem_imovel',
+            name: 'fk_tipos_bens_imovel',
             referencedTableName: 'tipos_bens_imoveis',
             referencedColumnNames: ['id'],
             columnNames: ['tipo_bem_imovel_id'],

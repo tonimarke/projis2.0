@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import TipoBemImovel from '../../../../tipo-bem-imovel/infra/typeorm/entities/TipoBemImovel';
+import TipoBemMovel from '../../../../tipo-bem-movel/infra/typeorm/entities/TipoBemMovel';
 
-@Entity('bens_imoveis')
-class BemImovel {
+@Entity('bens_moveis')
+class BemMovel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -24,11 +24,11 @@ class BemImovel {
   quantidade: number;
 
   @Column()
-  tipo_bem_imovel_id: string;
+  tipo_bem_movel_id: string;
 
-  @ManyToOne(() => TipoBemImovel)
-  @JoinColumn({ name: 'tipo_bem_imovel_id' })
-  tipo_bem_imovel: TipoBemImovel;
+  @ManyToOne(() => TipoBemMovel)
+  @JoinColumn({ name: 'tipo_bem_movel_id' })
+  tipo_bem_movel: TipoBemMovel;
 
   @CreateDateColumn()
   created_at: Date;
@@ -37,4 +37,4 @@ class BemImovel {
   updated_at: Date;
 }
 
-export default BemImovel;
+export default BemMovel;

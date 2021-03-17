@@ -9,6 +9,7 @@ import tipoBemImovelRouter from './modules/tipo-bem-imovel/infra/http/routes/Tip
 import tipoBemMovelRouter from './modules/tipo-bem-movel/infra/http/routes/TipoBemMovel.routes';
 import tipoAcaoRouter from './modules/tipo-acao/infra/http/routes/TipoAcao.routes';
 import bemImovelRouter from './modules/bem-imovel/infra/http/routes/BemImovel.routes';
+import bemMovelRouter from './modules/bem-movel/infra/http/routes/BemMovel.routes';
 
 const routes = Router();
 
@@ -21,5 +22,6 @@ routes.use('/', tipoBemImovelRouter);
 routes.use('/', tipoBemMovelRouter);
 routes.use('/', tipoAcaoRouter);
 routes.use('/', bemImovelRouter);
+routes.use('/', bemMovelRouter);
 
 export default routes;

@@ -5,6 +5,7 @@ import IBemImovelRepository from '../repositories/IBemImovelRepository';
 interface IRequest {
   id: string;
   nome: string;
+  valor: number;
   quantidade: number;
 }
 
@@ -15,7 +16,12 @@ class UpdateBemImovelService {
     this.bemImovelRepository = bemImovelRepository;
   }
 
-  public async execute({ id, nome, quantidade }: IRequest): Promise<BemImovel> {
+  public async execute({
+    id,
+    nome,
+    valor,
+    quantidade,
+  }: IRequest): Promise<BemImovel> {
     const bemImovel = await this.bemImovelRepository.findById(id);
 
     if (!bemImovel) {
@@ -23,6 +29,7 @@ class UpdateBemImovelService {
     }
 
     bemImovel.nome = nome;
+    bemImovel.valor = valor;
     bemImovel.quantidade = quantidade;
 
     await this.bemImovelRepository.save(bemImovel);

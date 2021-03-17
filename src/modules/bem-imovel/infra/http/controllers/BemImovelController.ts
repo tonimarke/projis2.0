@@ -10,7 +10,7 @@ import BemImovelRepository from '../../typeorm/repositories/BemImovelRepository'
 
 class BemImovelController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { nome, quantidade, tipo_bem_imovel_id } = req.body;
+    const { nome, valor, quantidade, tipo_bem_imovel_id } = req.body;
 
     const bemImovelRepository = new BemImovelRepository();
 
@@ -18,6 +18,7 @@ class BemImovelController {
 
     const bemImovel = await createBemImovel.execute({
       nome,
+      valor,
       quantidade,
       tipo_bem_imovel_id,
     });
@@ -48,7 +49,7 @@ class BemImovelController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    const { id, nome, quantidade } = req.body;
+    const { id, nome, valor, quantidade } = req.body;
 
     const bemImovelRepository = new BemImovelRepository();
 
@@ -57,6 +58,7 @@ class BemImovelController {
     const bemImovel = await updateBemImovel.execute({
       id,
       nome,
+      valor,
       quantidade,
     });
 

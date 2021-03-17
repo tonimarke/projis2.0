@@ -20,18 +20,18 @@ export default class createBensMoveis1614361720931
             isNullable: false,
           },
           {
-            name: 'tipo_id',
-            type: 'uuid',
-            isNullable: false,
-          },
-          {
             name: 'valor',
             type: 'decimal',
             isNullable: false,
           },
           {
             name: 'quantidade',
-            type: 'decimal',
+            type: 'int',
+            isNullable: false,
+          },
+          {
+            name: 'tipo_bem_movel_id',
+            type: 'uuid',
             isNullable: false,
           },
           {
@@ -47,11 +47,11 @@ export default class createBensMoveis1614361720931
         ],
         foreignKeys: [
           {
-            name: 'fk_bem_movel_tipo_bem_movel',
-            columnNames: ['tipo_id'],
-            referencedColumnNames: ['id'],
+            name: 'fk_tipos_bens_moveis',
             referencedTableName: 'tipos_bens_moveis',
-            onDelete: 'CASCADE',
+            referencedColumnNames: ['id'],
+            columnNames: ['tipo_bem_movel_id'],
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
         ],
@@ -60,10 +60,6 @@ export default class createBensMoveis1614361720931
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey(
-      'bens_moveis',
-      'fk_bem_movel_tipo_bem_movel',
-    );
     await queryRunner.dropTable('bens_moveis');
   }
 }
