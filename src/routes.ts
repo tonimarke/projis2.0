@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import estadoCivilRouter from './modules/estado-civil/infra/http/routes/EstadoCivil.routes';
+import tipoDePessoaRouter from './modules/tipo-de-pessoa/infra/http/routes/TipoDePessoa.routes';
 import enderecoRouter from './modules/endereco/infra/http/routes/Endereco.routes';
 import orcamentoFamiliarRouter from './modules/orcamento-familiar/infra/http/routes/OrcamentoFamiliar.routes';
 import habitacaoRouter from './modules/habitacao/infra/http/routes/Habitacao.routes';
@@ -14,6 +15,7 @@ import bemMovelRouter from './modules/bem-movel/infra/http/routes/BemMovel.route
 const routes = Router();
 
 routes.use('/', estadoCivilRouter);
+routes.use('/', tipoDePessoaRouter);
 routes.use('/', enderecoRouter);
 routes.use('/', orcamentoFamiliarRouter);
 routes.use('/', habitacaoRouter);
