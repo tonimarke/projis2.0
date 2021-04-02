@@ -29,6 +29,12 @@ export default class pessoas1614693642373 implements MigrationInterface {
             type: 'varchar',
             isNullable: false,
           },
+          {
+            name: 'email',
+            type: 'varchar',
+            isUnique: true,
+            isNullable: true,
+          },
           // Cliente
           {
             name: 'estado_civil_id',
@@ -108,11 +114,6 @@ export default class pessoas1614693642373 implements MigrationInterface {
             type: 'varchar',
             isNullable: true,
           },
-          {
-            name: 'supervisor_id',
-            type: 'uuid',
-            isNullable: true,
-          },
           // Supervisor
           {
             name: 'profissao',
@@ -131,6 +132,11 @@ export default class pessoas1614693642373 implements MigrationInterface {
             name: 'ocupacao',
             type: 'varchar',
             isNullable: true,
+          },
+          {
+            name: 'tipo_de_pessoa_id',
+            type: 'uuid',
+            isNullable: false,
           },
           {
             name: 'created_at',
@@ -161,10 +167,10 @@ export default class pessoas1614693642373 implements MigrationInterface {
             onUpdate: 'CASCADE',
           },
           {
-            name: 'fk_estagiario_supervisor',
-            columnNames: ['supervisor_id'],
+            name: 'fk_pesssoa_tipo_de_pessoa',
+            columnNames: ['tipo_de_pessoa_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'pessoas',
+            referencedTableName: 'tipos_de_pessoas',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
@@ -174,9 +180,6 @@ export default class pessoas1614693642373 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('pessoas', 'fk_pessoa_estado_civil');
-    await queryRunner.dropForeignKey('pessoas', 'fk_pessoa_endereco');
-    await queryRunner.dropForeignKey('pessoas', 'fk_estagiario_supervisor');
     await queryRunner.dropTable('pessoas');
   }
 }
