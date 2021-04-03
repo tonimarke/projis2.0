@@ -12,6 +12,7 @@ import tipoAcaoRouter from './modules/tipo-acao/infra/http/routes/TipoAcao.route
 import bemImovelRouter from './modules/bem-imovel/infra/http/routes/BemImovel.routes';
 import bemMovelRouter from './modules/bem-movel/infra/http/routes/BemMovel.routes';
 import pessoaRouter from './modules/pessoa/infra/http/routes/Pessoa.routes';
+import telefoneRouter from './modules/telefone/infra/http/routes/Telefone.routes';
 
 const routes = Router();
 
@@ -27,5 +28,6 @@ routes.use('/', tipoAcaoRouter);
 routes.use('/', bemImovelRouter);
 routes.use('/', bemMovelRouter);
 routes.use('/', pessoaRouter);
+routes.use('/', telefoneRouter);
 
 export default routes;
