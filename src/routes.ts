@@ -13,6 +13,7 @@ import bemImovelRouter from './modules/bem-imovel/infra/http/routes/BemImovel.ro
 import bemMovelRouter from './modules/bem-movel/infra/http/routes/BemMovel.routes';
 import pessoaRouter from './modules/pessoa/infra/http/routes/Pessoa.routes';
 import telefoneRouter from './modules/telefone/infra/http/routes/Telefone.routes';
+import estagiarioSupervisorRouter from './modules/estagiario-supervisor/infra/http/routes/EstagiarioSupervisor.routes';
 
 const routes = Router();
 
@@ -29,5 +30,6 @@ routes.use('/', bemImovelRouter);
 routes.use('/', bemMovelRouter);
 routes.use('/', pessoaRouter);
 routes.use('/', telefoneRouter);
+routes.use('/', estagiarioSupervisorRouter);
 
 export default routes;
