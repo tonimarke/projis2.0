@@ -1,10 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class telefones1614734281894 implements MigrationInterface {
+export default class estagiariosSupervisores1617664439740
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'telefones',
+        name: 'estagiarios_supervisores',
         columns: [
           {
             name: 'id',
@@ -14,25 +15,14 @@ export default class telefones1614734281894 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'tipo',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'numero',
-            type: 'varchar',
-            isUnique: true,
+            name: 'estagiario_id',
+            type: 'uuid',
             isNullable: false,
           },
           {
-            name: 'descricao',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'pessoa_id',
+            name: 'supervisor_id',
             type: 'uuid',
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: 'created_at',
@@ -47,11 +37,19 @@ export default class telefones1614734281894 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'fk_telefone_pessoa',
-            columnNames: ['pessoa_id'],
+            name: 'fk_estagiario_pessoa',
+            columnNames: ['estagiario_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'pessoas',
-            onDelete: 'CASCADE',
+            onDelete: 'SET NULL',
+            onUpdate: 'CASCADE',
+          },
+          {
+            name: 'fk_supervisor_pessoa',
+            columnNames: ['supervisor_id'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'pessoas',
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
         ],
@@ -60,6 +58,6 @@ export default class telefones1614734281894 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('telefones');
+    await queryRunner.dropTable('estagiarios_supervisores');
   }
 }
