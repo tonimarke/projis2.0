@@ -7,6 +7,7 @@ import UpdateAcaoService from '../../../services/UpdateAcaoService';
 import DeleteAcaoService from '../../../services/DeleteAcaoService';
 
 import AcaoRepository from '../../typeorm/repositories/AcaoRepository';
+import TipoAcaoRepository from '../../../../tipo-acao/infra/typeorm/repositories/TipoAcaoRepository';
 
 class AcaoController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -15,17 +16,23 @@ class AcaoController {
       data_atendimento,
       cliente_id,
       parte_contraria_id,
+      tipos_de_acoes,
     } = req.body;
 
     const acaoRepository = new AcaoRepository();
+    const tipoAcaoRepository = new TipoAcaoRepository();
 
-    const createAcao = new CreateAcaoService(acaoRepository);
+    const createAcao = new CreateAcaoService(
+      acaoRepository,
+      tipoAcaoRepository,
+    );
 
     const acao = await createAcao.execute({
       providencias,
       data_atendimento,
       cliente_id,
       parte_contraria_id,
+      tipos_de_acoes,
     });
 
     return res.json(acao);

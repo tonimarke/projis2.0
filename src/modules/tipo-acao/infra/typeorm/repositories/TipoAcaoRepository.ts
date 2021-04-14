@@ -30,6 +30,14 @@ class TipoAcaoRepository implements ITipoAcaoRepository {
     return tipoAcao;
   }
 
+  public async findByIds(
+    tipoDeAcao: string[],
+  ): Promise<TipoAcao[] | undefined> {
+    const tiposDeAcao = await this.ormRepository.findByIds(tipoDeAcao);
+
+    return tiposDeAcao;
+  }
+
   public async save(dataTipoAcao: ICreateTipoAcaoDTO): Promise<void> {
     await this.ormRepository.save(dataTipoAcao);
   }
