@@ -3,4 +3,5 @@ export default interface ICreateBemMovelDTO {
   valor: number;
   quantidade: number;
   tipo_bem_movel_id: string;
+  prontuario_id: string;
 }

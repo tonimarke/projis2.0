@@ -14,12 +14,14 @@ class CreateBemImovelService {
     valor,
     quantidade,
     tipo_bem_imovel_id,
+    prontuario_id,
   }: ICreateBemImovelDTO): Promise<BemImovel> {
     const bemImovel = await this.bemImovelRepository.create({
       nome,
       valor,
       quantidade,
       tipo_bem_imovel_id,
+      prontuario_id,
     });
 
     return bemImovel;

@@ -10,7 +10,13 @@ import BemMovelRepository from '../../typeorm/repositories/BemMovelRepository';
 
 class BemMovelController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { nome, valor, quantidade, tipo_bem_movel_id } = req.body;
+    const {
+      nome,
+      valor,
+      quantidade,
+      tipo_bem_movel_id,
+      prontuario_id,
+    } = req.body;
 
     const bemMovelRepository = new BemMovelRepository();
 
@@ -21,6 +27,7 @@ class BemMovelController {
       valor,
       quantidade,
       tipo_bem_movel_id,
+      prontuario_id,
     });
 
     return res.json(bemMovel);

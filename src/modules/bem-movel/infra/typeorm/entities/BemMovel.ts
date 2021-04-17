@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Prontuario from '../../../../prontuario/infra/typeorm/entities/Prontuario';
 import TipoBemMovel from '../../../../tipo-bem-movel/infra/typeorm/entities/TipoBemMovel';
 
 @Entity('bens_moveis')
@@ -29,6 +30,13 @@ class BemMovel {
   @ManyToOne(() => TipoBemMovel)
   @JoinColumn({ name: 'tipo_bem_movel_id' })
   tipo_bem_movel: TipoBemMovel;
+
+  @Column()
+  prontuario_id: string;
+
+  @ManyToOne(() => Prontuario)
+  @JoinColumn({ name: 'prontuario_id' })
+  prontuario: Prontuario[];
 
   @CreateDateColumn()
   created_at: Date;
