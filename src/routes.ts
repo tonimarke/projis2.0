@@ -17,6 +17,7 @@ import estagiarioSupervisorRouter from './modules/estagiario-supervisor/infra/ht
 import acaoRouter from './modules/acao/infra/http/routes/Acao.routes';
 import prontuarioRouter from './modules/prontuario/infra/http/routes/Prontuario.routes';
 import membroFamiliaRouter from './modules/membro-familia/infra/http/routes/MembroFamilia.routes';
+import prontuarioSupervisorRouter from './modules/prontuario-supervisor/infra/http/routes/ProntuarioSupervisor.routes';
 
 const routes = Router();
 
@@ -37,5 +38,6 @@ routes.use('/', estagiarioSupervisorRouter);
 routes.use('/', acaoRouter);
 routes.use('/', prontuarioRouter);
 routes.use('/', membroFamiliaRouter);
+routes.use('/', prontuarioSupervisorRouter);
 
 export default routes;
