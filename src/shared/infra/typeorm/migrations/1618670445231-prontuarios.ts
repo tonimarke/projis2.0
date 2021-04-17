@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class prontuarios1618442341150 implements MigrationInterface {
+export default class prontuarios1618670445231 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -68,18 +68,6 @@ export default class prontuarios1618442341150 implements MigrationInterface {
             type: 'uuid',
             isNullable: true,
           },
-          /*
-          {
-            name: 'bens_imoveis_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
-            name: 'bens_moveis_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          */
           {
             name: 'created_at',
             type: 'timestamp',

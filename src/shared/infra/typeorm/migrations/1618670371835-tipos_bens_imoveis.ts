@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class createBensImoveis1614360557563
+export default class tiposBensImoveis1618670371835
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'bens_imoveis',
+        name: 'tipos_bens_imoveis',
         columns: [
           {
             name: 'id',
@@ -20,21 +20,6 @@ export default class createBensImoveis1614360557563
             isNullable: false,
           },
           {
-            name: 'valor',
-            type: 'decimal',
-            isNullable: false,
-          },
-          {
-            name: 'quantidade',
-            type: 'int',
-            isNullable: false,
-          },
-          {
-            name: 'tipo_bem_imovel_id',
-            type: 'uuid',
-            isNullable: false,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
@@ -45,21 +30,11 @@ export default class createBensImoveis1614360557563
             default: 'now()',
           },
         ],
-        foreignKeys: [
-          {
-            name: 'fk_tipos_bens_imovel',
-            referencedTableName: 'tipos_bens_imoveis',
-            referencedColumnNames: ['id'],
-            columnNames: ['tipo_bem_imovel_id'],
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE',
-          },
-        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('bens_imoveis');
+    await queryRunner.dropTable('tipos_bens_imoveis');
   }
 }

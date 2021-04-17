@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class acoesTipos1618008109563 implements MigrationInterface {
+export default class telefones1618670401876 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'acoes_tipos',
+        name: 'telefones',
         columns: [
           {
             name: 'id',
@@ -14,14 +14,25 @@ export default class acoesTipos1618008109563 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'acao_id',
-            type: 'uuid',
+            name: 'tipo',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'numero',
+            type: 'varchar',
+            isUnique: true,
             isNullable: false,
           },
           {
-            name: 'tipo_id',
+            name: 'descricao',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'pessoa_id',
             type: 'uuid',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'created_at',
@@ -36,19 +47,11 @@ export default class acoesTipos1618008109563 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'fk_acao_tipo_acao',
-            columnNames: ['acao_id'],
+            name: 'fk_telefone_pessoa',
+            columnNames: ['pessoa_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'acoes',
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE',
-          },
-          {
-            name: 'fk_tipo_acao_tipo',
-            columnNames: ['tipo_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'tipos_acoes',
-            onDelete: 'SET NULL',
+            referencedTableName: 'pessoas',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
         ],
@@ -57,6 +60,6 @@ export default class acoesTipos1618008109563 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('acoes_tipos');
+    await queryRunner.dropTable('telefones');
   }
 }

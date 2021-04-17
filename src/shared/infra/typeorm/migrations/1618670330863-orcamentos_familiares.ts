@@ -1,10 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class habitacoes1613925794023 implements MigrationInterface {
+export default class orcamentosFamiliares1618670330863
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'habitacoes',
+        name: 'orcamentos_familiares',
         columns: [
           {
             name: 'id',
@@ -14,73 +15,68 @@ export default class habitacoes1613925794023 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'situacao',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'valor_aluguel',
+            name: 'alimentacao',
             type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'quantidade_dormitorios',
-            type: 'integer',
+            name: 'transporte',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'quantidade_salas',
-            type: 'integer',
+            name: 'agua',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'quantidade_copas',
-            type: 'integer',
+            name: 'luz',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'quantidade_cozinhas',
-            type: 'integer',
+            name: 'telefone',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'quantidade_areas_servico',
-            type: 'integer',
+            name: 'internet',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'quantidade_garagens',
-            type: 'integer',
+            name: 'aluguel',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'pintura',
-            type: 'varchar',
+            name: 'convenio_medico',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'piso',
-            type: 'varchar',
+            name: 'medicamentos',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'contra_piso',
-            type: 'integer',
+            name: 'educacao',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'laje',
-            type: 'integer',
+            name: 'higiene',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'forro_madeira',
-            type: 'integer',
+            name: 'financiamento',
+            type: 'decimal',
             isNullable: false,
           },
           {
-            name: 'sem_forro',
-            type: 'integer',
+            name: 'outros',
+            type: 'decimal',
             isNullable: false,
           },
           {
@@ -99,6 +95,6 @@ export default class habitacoes1613925794023 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('habitacoes');
+    await queryRunner.dropTable('orcamentos_familiares');
   }
 }

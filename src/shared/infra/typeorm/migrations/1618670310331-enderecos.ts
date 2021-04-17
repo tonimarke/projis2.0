@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class membrosFamilia1618614657883 implements MigrationInterface {
+export default class enderecos1618670310331 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'membros_familia',
+        name: 'enderecos',
         columns: [
           {
             name: 'id',
@@ -14,53 +14,38 @@ export default class membrosFamilia1618614657883 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'nome',
+            name: 'logradouro',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'data_nascimento',
-            type: 'date',
-            isNullable: false,
-          },
-          {
-            name: 'parentesco',
+            name: 'numero',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'num_filhos',
+            name: 'bairro',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'escolaridade',
+            name: 'complemento',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'cep',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'ocupacao',
+            name: 'cidade',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'local_trabalho',
+            name: 'estado',
             type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'salario',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'observacao',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'estado_civil_id',
-            type: 'uuid',
             isNullable: false,
           },
           {
@@ -74,21 +59,11 @@ export default class membrosFamilia1618614657883 implements MigrationInterface {
             default: 'now()',
           },
         ],
-        foreignKeys: [
-          {
-            name: 'fk_membro_familia_estado_civeil',
-            columnNames: ['estado_civil_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'estados_civis',
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE',
-          },
-        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('membros_familia');
+    await queryRunner.dropTable('enderecos');
   }
 }

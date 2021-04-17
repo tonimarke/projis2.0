@@ -1,11 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class estagiariosSupervisores1617664439740
-  implements MigrationInterface {
+export default class acoes1618670425733 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'estagiarios_supervisores',
+        name: 'acoes',
         columns: [
           {
             name: 'id',
@@ -15,12 +14,22 @@ export default class estagiariosSupervisores1617664439740
             default: 'gen_random_uuid()',
           },
           {
-            name: 'estagiario_id',
+            name: 'providencias',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'data_atendimento',
+            type: 'timestamp',
+            isNullable: false,
+          },
+          {
+            name: 'cliente_id',
             type: 'uuid',
             isNullable: false,
           },
           {
-            name: 'supervisor_id',
+            name: 'parte_contraria_id',
             type: 'uuid',
             isNullable: false,
           },
@@ -37,19 +46,19 @@ export default class estagiariosSupervisores1617664439740
         ],
         foreignKeys: [
           {
-            name: 'fk_estagiario_pessoa',
-            columnNames: ['estagiario_id'],
+            name: 'fk_acao_cliente',
+            columnNames: ['cliente_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'pessoas',
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
           {
-            name: 'fk_supervisor_pessoa',
-            columnNames: ['supervisor_id'],
+            name: 'fk_acao_parte_contraria',
+            columnNames: ['parte_contraria_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'pessoas',
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
         ],
@@ -58,6 +67,6 @@ export default class estagiariosSupervisores1617664439740
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('estagiarios_supervisores');
+    await queryRunner.dropTable('acoes');
   }
 }

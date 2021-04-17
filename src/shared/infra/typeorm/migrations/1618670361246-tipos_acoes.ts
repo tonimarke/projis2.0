@@ -1,11 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class tiposBensImoveis1613950136954
-  implements MigrationInterface {
+export default class tiposAcoes1618670361246 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'tipos_bens_imoveis',
+        name: 'tipos_acoes',
         columns: [
           {
             name: 'id',
@@ -18,6 +17,11 @@ export default class tiposBensImoveis1613950136954
             name: 'nome',
             type: 'varchar',
             isNullable: false,
+          },
+          {
+            name: 'descricao',
+            type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',
@@ -35,6 +39,6 @@ export default class tiposBensImoveis1613950136954
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('tipos_bens_imoveis');
+    await queryRunner.dropTable('tipos_acoes');
   }
 }

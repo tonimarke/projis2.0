@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class telefones1614734281894 implements MigrationInterface {
+export default class bensMoveis1618670465784 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'telefones',
+        name: 'bens_moveis',
         columns: [
           {
             name: 'id',
@@ -14,25 +14,29 @@ export default class telefones1614734281894 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'tipo',
+            name: 'nome',
             type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'numero',
-            type: 'varchar',
-            isUnique: true,
             isNullable: false,
           },
           {
-            name: 'descricao',
-            type: 'varchar',
-            isNullable: true,
+            name: 'valor',
+            type: 'decimal',
+            isNullable: false,
           },
           {
-            name: 'pessoa_id',
+            name: 'quantidade',
+            type: 'int',
+            isNullable: false,
+          },
+          {
+            name: 'tipo_bem_movel_id',
             type: 'uuid',
-            isNullable: true,
+            isNullable: false,
+          },
+          {
+            name: 'prontuario_id',
+            type: 'uuid',
+            isNullable: false,
           },
           {
             name: 'created_at',
@@ -47,11 +51,19 @@ export default class telefones1614734281894 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'fk_telefone_pessoa',
-            columnNames: ['pessoa_id'],
+            name: 'fk_bens_imovel_tipos_bens_moveis',
+            columnNames: ['tipo_bem_movel_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'pessoas',
-            onDelete: 'CASCADE',
+            referencedTableName: 'tipos_bens_moveis',
+            onDelete: 'SET NULL',
+            onUpdate: 'CASCADE',
+          },
+          {
+            name: 'fk_bens_imovel_prontuario',
+            columnNames: ['prontuario_id'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'prontuarios',
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
         ],
@@ -60,6 +72,6 @@ export default class telefones1614734281894 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('telefones');
+    await queryRunner.dropTable('bens_moveis');
   }
 }

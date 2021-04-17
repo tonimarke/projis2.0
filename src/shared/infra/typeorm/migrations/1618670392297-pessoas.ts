@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class pessoas1614693642373 implements MigrationInterface {
+export default class pessoas1618670392297 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -37,11 +37,6 @@ export default class pessoas1614693642373 implements MigrationInterface {
           },
           // Cliente
           {
-            name: 'estado_civil_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
             name: 'nome_pai',
             type: 'varchar',
             isNullable: true,
@@ -54,11 +49,6 @@ export default class pessoas1614693642373 implements MigrationInterface {
           {
             name: 'data_nascimento',
             type: 'timestamp',
-            isNullable: true,
-          },
-          {
-            name: 'endereco_id',
-            type: 'uuid',
             isNullable: true,
           },
           {
@@ -131,6 +121,16 @@ export default class pessoas1614693642373 implements MigrationInterface {
           {
             name: 'ocupacao',
             type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'estado_civil_id',
+            type: 'uuid',
+            isNullable: true,
+          },
+          {
+            name: 'endereco_id',
+            type: 'uuid',
             isNullable: true,
           },
           {

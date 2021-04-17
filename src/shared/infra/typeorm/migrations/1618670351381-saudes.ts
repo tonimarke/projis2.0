@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class enderecos1613603273264 implements MigrationInterface {
+export default class saudes1618670351381 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'enderecos',
+        name: 'saudes',
         columns: [
           {
             name: 'id',
@@ -14,37 +14,27 @@ export default class enderecos1613603273264 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'logradouro',
+            name: 'interditado',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'numero',
+            name: 'curador_tutor',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'bairro',
+            name: 'medicamentos',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'complemento',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'cep',
+            name: 'rede_publica',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'cidade',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'estado',
+            name: 'observacoes',
             type: 'varchar',
             isNullable: false,
           },
@@ -64,6 +54,6 @@ export default class enderecos1613603273264 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('enderecos');
+    await queryRunner.dropTable('saudes');
   }
 }

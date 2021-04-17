@@ -1,10 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class acoes1617837198119 implements MigrationInterface {
+export default class prontuariosSupervisores1618670484536
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'acoes',
+        name: 'prontuarios_supervisores',
         columns: [
           {
             name: 'id',
@@ -14,22 +15,12 @@ export default class acoes1617837198119 implements MigrationInterface {
             default: 'gen_random_uuid()',
           },
           {
-            name: 'providencias',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'data_atendimento',
-            type: 'timestamp',
-            isNullable: false,
-          },
-          {
-            name: 'cliente_id',
+            name: 'supervisor_id',
             type: 'uuid',
             isNullable: false,
           },
           {
-            name: 'parte_contraria_id',
+            name: 'prontuario_id',
             type: 'uuid',
             isNullable: false,
           },
@@ -46,19 +37,19 @@ export default class acoes1617837198119 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'fk_acao_cliente',
-            columnNames: ['cliente_id'],
+            name: 'fk_prontuario_supervisor_pessoa',
+            columnNames: ['supervisor_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'pessoas',
-            onDelete: 'CASCADE',
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
           {
-            name: 'fk_acao_parte_contraria',
-            columnNames: ['parte_contraria_id'],
+            name: 'fk_prontuario_supervisor_prontuario',
+            columnNames: ['prontuario_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'pessoas',
-            onDelete: 'CASCADE',
+            referencedTableName: 'prontuarios',
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
         ],
@@ -67,6 +58,6 @@ export default class acoes1617837198119 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('acoes');
+    await queryRunner.dropTable('prontuarios_supervisores');
   }
 }

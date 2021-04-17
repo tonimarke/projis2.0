@@ -1,11 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class prontuariosSupervisores1618662848982
-  implements MigrationInterface {
+export default class acoesTipos1618670434970 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'prontuarios_supervisores',
+        name: 'acoes_tipos',
         columns: [
           {
             name: 'id',
@@ -15,12 +14,12 @@ export default class prontuariosSupervisores1618662848982
             default: 'gen_random_uuid()',
           },
           {
-            name: 'supervisor_id',
+            name: 'acao_id',
             type: 'uuid',
             isNullable: false,
           },
           {
-            name: 'prontuario_id',
+            name: 'tipo_id',
             type: 'uuid',
             isNullable: false,
           },
@@ -37,18 +36,18 @@ export default class prontuariosSupervisores1618662848982
         ],
         foreignKeys: [
           {
-            name: 'fk_prontuario_supervisor_pessoa',
-            columnNames: ['supervisor_id'],
+            name: 'fk_acao_tipo_acao',
+            columnNames: ['acao_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'pessoas',
+            referencedTableName: 'acoes',
             onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
           {
-            name: 'fk_prontuario_supervisor_prontuario',
-            columnNames: ['prontuario_id'],
+            name: 'fk_tipo_acao_tipo',
+            columnNames: ['tipo_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'prontuarios',
+            referencedTableName: 'tipos_acoes',
             onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
@@ -58,6 +57,6 @@ export default class prontuariosSupervisores1618662848982
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('prontuarios_supervisores');
+    await queryRunner.dropTable('acoes_tipos');
   }
 }
