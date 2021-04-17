@@ -1,15 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateSaudeDTO from '../dtos/IUpdateSaudeDTO';
 import Saude from '../infra/typeorm/entities/Saude';
 import ISaudeRepository from '../repositories/ISaudeRepository';
-
-interface IRequest {
-  id: string;
-  interditado: string;
-  curador_tutor: string;
-  medicamentos: string;
-  rede_publica: string;
-  observacoes: string;
-}
 
 class UpdateSaudeService {
   private saudeRepository: ISaudeRepository;
@@ -25,7 +17,7 @@ class UpdateSaudeService {
     medicamentos,
     rede_publica,
     observacoes,
-  }: IRequest): Promise<Saude> {
+  }: IUpdateSaudeDTO): Promise<Saude> {
     const saude = await this.saudeRepository.findById(id);
 
     if (!saude) {

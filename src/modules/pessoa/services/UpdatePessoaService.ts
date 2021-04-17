@@ -1,30 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdatePessoaDTO from '../dtos/IUpdatePessoaDTO';
 import Pessoa from '../infra/typeorm/entities/Pessoa';
 import IPessoaRepository from '../repositories/IPessoaRepository';
-
-interface IResquest {
-  id: string;
-  nome: string;
-  rg: string;
-  cpf: string;
-  email: string;
-  nome_pai: string;
-  nome_mae: string;
-  data_nascimento: Date;
-  religiao: string;
-  previdencia_social: string;
-  bpc: string;
-  sindicalizado: string;
-  situacao: string;
-  observacoes: string;
-  inicio_vinculo: Date;
-  termino_vinculo: Date;
-  curso: string;
-  periodo: string;
-  profissao: string;
-  oab: string;
-  ocupacao: string;
-}
 
 class UpdatePessoaService {
   private pessoaRepository: IPessoaRepository;
@@ -55,7 +32,7 @@ class UpdatePessoaService {
     profissao,
     oab,
     ocupacao,
-  }: IResquest): Promise<Pessoa> {
+  }: IUpdatePessoaDTO): Promise<Pessoa> {
     const pessoa = await this.pessoaRepository.findById(id);
 
     if (!pessoa) {

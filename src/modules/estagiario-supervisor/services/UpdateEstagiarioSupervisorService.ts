@@ -1,12 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateEstagiarioSupervisorDTO from '../dtos/IUpdateEstagiarioSupervisorDTO';
 import EstagiarioSupervisor from '../infra/typeorm/entities/EstagiarioSupervisor';
 import IEstagiarioSupervisorRepository from '../repositories/IEstagiarioSupervisorRepository';
-
-interface IRequest {
-  id: string;
-  estagiario_id: string;
-  supervisor_id: string;
-}
 
 class UpdateEstagiarioSupervisorService {
   private estagiarioSupervisorRepository: IEstagiarioSupervisorRepository;
@@ -19,7 +14,7 @@ class UpdateEstagiarioSupervisorService {
     id,
     estagiario_id,
     supervisor_id,
-  }: IRequest): Promise<EstagiarioSupervisor> {
+  }: IUpdateEstagiarioSupervisorDTO): Promise<EstagiarioSupervisor> {
     const estagiarioSupervisor = await this.estagiarioSupervisorRepository.findById(
       id,
     );

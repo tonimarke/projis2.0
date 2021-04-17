@@ -1,13 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateTelefoneDTO from '../dtos/IUpdateTelefoneDTO';
 import Telefone from '../infra/typeorm/entities/Telefone';
 import ITelefoneRepository from '../repositories/ITelefoneRepository';
-
-interface IRequest {
-  id: string;
-  tipo: string;
-  numero: string;
-  descricao: string;
-}
 
 class UpdateTelefoneService {
   private telefoneRepository: ITelefoneRepository;
@@ -21,7 +15,7 @@ class UpdateTelefoneService {
     tipo,
     numero,
     descricao,
-  }: IRequest): Promise<Telefone> {
+  }: IUpdateTelefoneDTO): Promise<Telefone> {
     const telefone = await this.telefoneRepository.findById(id);
 
     if (!telefone) {

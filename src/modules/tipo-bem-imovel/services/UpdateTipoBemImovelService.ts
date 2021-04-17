@@ -1,11 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateTipoBemImovelDTO from '../dtos/IUpdateTipoBemImovelDTO';
 import TipoBemImovel from '../infra/typeorm/entities/TipoBemImovel';
 import ITipoBemImovelRepository from '../repositories/ITipoBemImovelRepository';
-
-interface IRequest {
-  id: string;
-  nome: string;
-}
 
 class UpdateTipoBemImovelService {
   private tipoBemImovelRepository: ITipoBemImovelRepository;
@@ -14,7 +10,10 @@ class UpdateTipoBemImovelService {
     this.tipoBemImovelRepository = tipoBemImovelRepository;
   }
 
-  public async execute({ id, nome }: IRequest): Promise<TipoBemImovel> {
+  public async execute({
+    id,
+    nome,
+  }: IUpdateTipoBemImovelDTO): Promise<TipoBemImovel> {
     const tipoBemImovel = await this.tipoBemImovelRepository.findById(id);
 
     if (!tipoBemImovel) {

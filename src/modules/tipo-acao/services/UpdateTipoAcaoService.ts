@@ -1,12 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateTipoAcaoDTO from '../dtos/IUpdateTipoAcaoDTO';
 import TipoAcao from '../infra/typeorm/entities/TipoAcao';
 import ITipoAcaoRepository from '../repositories/ITipoAcaoRepository';
-
-interface IRequest {
-  id: string;
-  nome: string;
-  descricao: string;
-}
 
 class UpdateTipoAcaoService {
   private tipoAcaoRepository: ITipoAcaoRepository;
@@ -15,7 +10,11 @@ class UpdateTipoAcaoService {
     this.tipoAcaoRepository = tipoAcaoRepository;
   }
 
-  public async execute({ id, nome, descricao }: IRequest): Promise<TipoAcao> {
+  public async execute({
+    id,
+    nome,
+    descricao,
+  }: IUpdateTipoAcaoDTO): Promise<TipoAcao> {
     const tipoAcao = await this.tipoAcaoRepository.findById(id);
 
     if (!tipoAcao) {

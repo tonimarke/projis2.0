@@ -1,24 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateHabitacaoDTO from '../dtos/IUpdateHabitacaoDTO';
 import Habitacao from '../infra/typeorm/entities/Habitacao';
 import IHabitacaoRepository from '../repositories/IHabitacaoRepository';
-
-interface IRequest {
-  id: string;
-  situacao: string;
-  valor_aluguel: number;
-  quantidade_dormitorios: number;
-  quantidade_salas: number;
-  quantidade_copas: number;
-  quantidade_cozinhas: number;
-  quantidade_areas_servico: number;
-  quantidade_garagens: number;
-  pintura: string;
-  piso: string;
-  contra_piso: number;
-  laje: number;
-  forro_madeira: number;
-  sem_forro: number;
-}
 
 class UpdateHabitacaoService {
   private habitacaoRepository: IHabitacaoRepository;
@@ -43,7 +26,7 @@ class UpdateHabitacaoService {
     laje,
     forro_madeira,
     sem_forro,
-  }: IRequest): Promise<Habitacao> {
+  }: IUpdateHabitacaoDTO): Promise<Habitacao> {
     const habitacao = await this.habitacaoRepository.findById(id);
 
     if (!habitacao) {

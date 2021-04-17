@@ -1,17 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateEnderecoDTO from '../dtos/IUpdateEnderecoDTO';
 import Endereco from '../infra/typeorm/entities/Endereco';
 import IEnderecoRepository from '../repositories/IEnderecoRepository';
-
-interface IRequest {
-  id: string;
-  logradouro: string;
-  numero: string;
-  bairro: string;
-  complemento: string;
-  cep: string;
-  cidade: string;
-  estado: string;
-}
 
 class UpdateEnderecoService {
   private enderecoRepository: IEnderecoRepository;
@@ -29,7 +19,7 @@ class UpdateEnderecoService {
     cep,
     cidade,
     estado,
-  }: IRequest): Promise<Endereco> {
+  }: IUpdateEnderecoDTO): Promise<Endereco> {
     const endereco = await this.enderecoRepository.findById(id);
 
     if (!endereco) {

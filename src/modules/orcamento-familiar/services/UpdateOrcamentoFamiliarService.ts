@@ -1,23 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateOrcamentoFamiliarDTO from '../dtos/IUpdateOrcamentoFamiliarDTO';
 import OrcamentoFamiliar from '../infra/typeorm/entities/OrcamentoFamiliar';
 import IOrcamentoFamiliarRepository from '../repositories/IOrcamentoFamiliarRepository';
-
-interface IRequest {
-  id: string;
-  alimentacao: number;
-  transporte: number;
-  agua: number;
-  luz: number;
-  telefone: number;
-  internet: number;
-  aluguel: number;
-  convenio_medico: number;
-  medicamentos: number;
-  educacao: number;
-  higiene: number;
-  financiamento: number;
-  outros: number;
-}
 
 class UpdateOrcamentoFamiliarService {
   private orcamentoFamiliarRepository: IOrcamentoFamiliarRepository;
@@ -41,7 +25,7 @@ class UpdateOrcamentoFamiliarService {
     higiene,
     financiamento,
     outros,
-  }: IRequest): Promise<OrcamentoFamiliar> {
+  }: IUpdateOrcamentoFamiliarDTO): Promise<OrcamentoFamiliar> {
     const orcamentoFamiliar = await this.orcamentoFamiliarRepository.findById(
       id,
     );

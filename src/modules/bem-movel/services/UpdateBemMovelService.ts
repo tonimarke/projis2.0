@@ -1,13 +1,7 @@
 import AppError from '../../../shared/error/AppError';
+import IUpdateBemMovelDTO from '../dtos/IUpdateBemMovelDTO';
 import BemMovel from '../infra/typeorm/entities/BemMovel';
 import IBemMovelRepository from '../repositories/IBemMovelRepository';
-
-interface IRequest {
-  id: string;
-  nome: string;
-  valor: number;
-  quantidade: number;
-}
 
 class UpdateBemMovelService {
   private bemMovelRepository: IBemMovelRepository;
@@ -21,7 +15,7 @@ class UpdateBemMovelService {
     nome,
     valor,
     quantidade,
-  }: IRequest): Promise<BemMovel> {
+  }: IUpdateBemMovelDTO): Promise<BemMovel> {
     const bemMovel = await this.bemMovelRepository.findById(id);
 
     if (!bemMovel) {
