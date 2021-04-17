@@ -16,6 +16,7 @@ import telefoneRouter from './modules/telefone/infra/http/routes/Telefone.routes
 import estagiarioSupervisorRouter from './modules/estagiario-supervisor/infra/http/routes/EstagiarioSupervisor.routes';
 import acaoRouter from './modules/acao/infra/http/routes/Acao.routes';
 import prontuarioRouter from './modules/prontuario/infra/http/routes/Prontuario.routes';
+import membroFamiliaRouter from './modules/membro-familia/infra/http/routes/MembroFamilia.routes';
 
 const routes = Router();
 
@@ -35,5 +36,6 @@ routes.use('/', telefoneRouter);
 routes.use('/', estagiarioSupervisorRouter);
 routes.use('/', acaoRouter);
 routes.use('/', prontuarioRouter);
+routes.use('/', membroFamiliaRouter);
 
 export default routes;

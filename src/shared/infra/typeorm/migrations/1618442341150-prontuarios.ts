@@ -148,24 +148,6 @@ export default class prontuarios1618442341150 implements MigrationInterface {
             onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
-          /*
-          {
-            name: 'fk_prontuarios_bens_imoveis_id',
-            columnNames: ['bens_imoveis_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'bens_imoveis',
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE',
-          },
-          {
-            name: 'fk_prontuarios_bens_moveis_id',
-            columnNames: ['bens_moveis_id'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'bens_moveis',
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE',
-          },
-          */
         ],
       }),
     );
