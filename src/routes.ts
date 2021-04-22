@@ -19,6 +19,8 @@ import prontuarioRouter from './modules/prontuario/infra/http/routes/Prontuario.
 import membroFamiliaRouter from './modules/membro-familia/infra/http/routes/MembroFamilia.routes';
 import prontuarioSupervisorRouter from './modules/prontuario-supervisor/infra/http/routes/ProntuarioSupervisor.routes';
 
+import permissaoRouter from './modules/permissao/infra/http/routes/Permissao.routes';
+
 const routes = Router();
 
 routes.use('/', estadoCivilRouter);
@@ -39,5 +41,7 @@ routes.use('/', acaoRouter);
 routes.use('/', prontuarioRouter);
 routes.use('/', membroFamiliaRouter);
 routes.use('/', prontuarioSupervisorRouter);
+
+routes.use('/', permissaoRouter);
 
 export default routes;
