@@ -7,18 +7,24 @@ import UpdateTipoDePessoaService from '../../../services/UpdateTipoDePessoaServi
 import DeleteTipoDePessoaService from '../../../services/DeleteTipoDePessoaService';
 
 import TipoDePessoaRepository from '../../typeorm/repositories/TipoDePessoaRepository';
+import PermissaoRepository from '../../../../permissao/infra/typeorm/repositories/PermissaoRepository';
 
 class TipoDePessoaController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { tipo_de_pessoa } = req.body;
+    const { tipo_de_pessoa, permissoes } = req.body;
 
     const tipoDePessoaRepository = new TipoDePessoaRepository();
+    const permissaoRepository = new PermissaoRepository();
 
     const createTipoDePessoa = new CreateTipoDePessoaService(
       tipoDePessoaRepository,
+      permissaoRepository,
     );
 
-    const tipoDePessoa = await createTipoDePessoa.execute(tipo_de_pessoa);
+    const tipoDePessoa = await createTipoDePessoa.execute({
+      tipo_de_pessoa,
+      permissoes,
+    });
 
     return res.json(tipoDePessoa);
   }
@@ -58,7 +64,10 @@ class TipoDePessoaController {
       tipoDePessoaRepository,
     );
 
-    const tipoDePessoa = await updateTipoDePessoa.execute(id, tipo_de_pessoa);
+    const tipoDePessoa = await updateTipoDePessoa.execute({
+      id,
+      tipo_de_pessoa,
+    });
 
     return res.json(tipoDePessoa);
   }

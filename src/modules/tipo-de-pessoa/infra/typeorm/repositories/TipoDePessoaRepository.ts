@@ -1,4 +1,5 @@
 import { getRepository, Like, Repository } from 'typeorm';
+import ICreateTipoDePessoaDTO from '../../../dtos/ICreateTipoDePessoaDTO';
 import ITipoDePessoaRepository from '../../../repositories/ITipoDePessoaRepository';
 import TipoDePessoa from '../entities/TipoDePessoa';
 
@@ -9,9 +10,13 @@ class TipoDePessoaRepository implements ITipoDePessoaRepository {
     this.ormRepository = getRepository(TipoDePessoa);
   }
 
-  public async create(tipo_de_pessoa: string): Promise<TipoDePessoa> {
+  public async create({
+    tipo_de_pessoa,
+    permissoes,
+  }: ICreateTipoDePessoaDTO): Promise<TipoDePessoa> {
     const tipo = this.ormRepository.create({
       tipo_de_pessoa,
+      permissoes,
     });
 
     await this.ormRepository.save(tipo);

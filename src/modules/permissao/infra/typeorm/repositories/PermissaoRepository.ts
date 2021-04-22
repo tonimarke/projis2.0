@@ -30,6 +30,14 @@ class PermissaoRepository implements IPermissaoRepository {
     return permissao;
   }
 
+  public async findByIds(
+    permissao: string[],
+  ): Promise<Permissao[] | undefined> {
+    const permissoes = await this.ormRepository.findByIds(permissao);
+
+    return permissoes;
+  }
+
   public async save(dataPermissao: ICreatePermissaoDTO): Promise<void> {
     await this.ormRepository.save(dataPermissao);
   }
