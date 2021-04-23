@@ -20,6 +20,8 @@ import membroFamiliaRouter from './modules/membro-familia/infra/http/routes/Memb
 import prontuarioSupervisorRouter from './modules/prontuario-supervisor/infra/http/routes/ProntuarioSupervisor.routes';
 
 import permissaoRouter from './modules/permissao/infra/http/routes/Permissao.routes';
+import usuarioRouter from './modules/usuario/infra/http/routes/Usuario.routes';
+import sessionsRouter from './modules/usuario/infra/http/routes/Session.routes';
 
 const routes = Router();
 
@@ -43,5 +45,7 @@ routes.use('/', membroFamiliaRouter);
 routes.use('/', prontuarioSupervisorRouter);
 
 routes.use('/', permissaoRouter);
+routes.use('/', usuarioRouter);
+routes.use('/', sessionsRouter);
 
 export default routes;
