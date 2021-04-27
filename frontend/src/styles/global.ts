@@ -18,4 +18,9 @@ export default createGlobalStyle`
     font-family: 'Inter', serif;
     font-size: 16px;
   }
+
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
 `;
