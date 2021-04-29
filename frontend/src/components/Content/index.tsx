@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
 import { Container, Grid } from './styles';
+
+import Card from '../Card';
 
 interface ContentProps {
 }
@@ -9,31 +10,49 @@ function Content({ }: ContentProps) {
     <Container>
       <h1>Início - Bem vindo!</h1>
       <Grid>
-        <Link to="">
-          <p>Estagiários</p>
-          <p>Supervisores</p>
-          <p>Admins</p>
-        </Link>
+        <Card
+          ps={['Estagiário', 'Supervisores', 'Admins']}
+          links={[
+            { label: "Cadastro", to:"" },
+            { label: "Consulta", to:"" }
+          ]}
+        />
 
-        <Link to="">
-          <p>Clientes</p>
-        </Link>
+        <Card
+          ps={['Clientes']}
+          links={[
+            { label: "Cadastro", to:"" },
+            { label: "Consulta", to:"" }
+          ]}
+        />
 
-        <Link to="">
-          <p>Partes Contrarias</p>
-        </Link>
+        <Card
+          ps={['Partes Contrarias']}
+          links={[
+            { label: "Cadastro", to:"" },
+            { label: "Consulta", to:"" }
+          ]}
+        />
 
-        <Link to="">
-          <p>Ações</p>
-        </Link>
+        <Card
+          ps={['Ações']}
+          links={[
+            { label: "Cadastro", to:"" },
+            { label: "Consulta", to:"" }
+          ]}
+        />
 
-        <Link to="">
-          <p>Prontuário</p>
-        </Link>
+        <Card
+          ps={['Prontuários']}
+          links={[
+            { label: "Cadastro", to:"" },
+            { label: "Consulta", to:"" }
+          ]}
+        />
 
-        <Link to="">
-          <p>Dados</p>
-        </Link>
+        <Card
+          ps={['Dados']}
+        />
       </Grid>
     </Container>
   );
