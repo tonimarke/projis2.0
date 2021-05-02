@@ -6,12 +6,15 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   background: #E5E5E5;
-  /* display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   width: 100%;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
   form {
     height: 100%;
     display: flex;
@@ -19,7 +22,8 @@ export const Content = styled.div`
 
     button {
       margin-top: auto;
-      
+      max-width: 300px;
+      align-self: flex-end;
     }
   }
 `;

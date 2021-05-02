@@ -17,6 +17,7 @@ export default createGlobalStyle`
   body, input, button {
     font-family: 'Inter', serif;
     font-size: 16px;
+    width: 100%;
   }
 
   a {
