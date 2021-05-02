@@ -4,6 +4,7 @@ import { FaUserTie, FaUser, FaUserTimes, FaGavel, FaFile, FaCog } from 'react-ic
 import { Container, NavIcons } from './styles';
 
 import logoImg from '../../assets/logo.svg';
+import { Link } from 'react-router-dom';
 
 interface MenuProps {
   icon?: React.ComponentType<IconBaseProps>
@@ -12,7 +13,9 @@ interface MenuProps {
 function Menu({ icon }: MenuProps) {
   return (
     <Container>
-      <img src={logoImg} alt="Projis"/>
+      <Link to="/dashboard">
+        <img src={logoImg} alt="Projis"/>
+      </Link>
       <h1>Projis</h1>
 
       <NavIcons>

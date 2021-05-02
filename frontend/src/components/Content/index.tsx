@@ -13,8 +13,8 @@ function Content({ }: ContentProps) {
         <Card
           ps={['Estagiário', 'Supervisores', 'Admins']}
           links={[
-            { label: "Cadastro", to:"" },
-            { label: "Consulta", to:"" }
+            { label: "Cadastro", to:"/internal_registration" },
+            { label: "Consulta", to:"/internal_consultation" }
           ]}
         />
 

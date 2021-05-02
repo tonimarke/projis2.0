@@ -8,7 +8,13 @@ interface ContainerProps {
   isErrored: boolean;
 }
 
+export const Label = styled.div`
+  label {
+  }
+`;
+
 export const Container = styled.div<ContainerProps>`
+  background: #FFF;
   border-radius: 10px;
   padding: 10px;
 
@@ -18,7 +24,7 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
 
   & + div {
-    margin-top: 8px;
+    margin-top: 10px;
   }
 
   input {
