@@ -19,7 +19,9 @@ class UsuarioRepository implements IUsuarioRepository {
   }
 
   public async findAll(): Promise<Usuario[] | undefined> {
-    const usuarios = await this.ormRepository.find();
+    const usuarios = await this.ormRepository.find({
+      relations: ['tipo_de_pessoa'],
+    });
 
     return usuarios;
   }

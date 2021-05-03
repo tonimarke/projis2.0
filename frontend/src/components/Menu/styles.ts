@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 125px;
-  min-height: 100vh;
-  text-align: center;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   img {
     height: 100px;
@@ -16,7 +23,8 @@ export const NavIcons = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  
+  margin-bottom: 50px;
+
   svg {
     margin-top: 50px;
   }

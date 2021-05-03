@@ -13,11 +13,11 @@ function Card({ ps, links }: CardProps) {
   return (
     <Container>
       <Ps>
-        {ps.map((p) => <p>{p}</p>)}
+        {ps.map((p) => <p key={p}>{p}</p>)}
       </Ps>
 
       <Links>
-        {links && links.map((link) => <Link to={link.to}>{link.label}</Link>)}
+        {links && links.map((link) => <Link key={link.label} to={link.to}>{link.label}</Link>)}
       </Links>
     </Container>
   );

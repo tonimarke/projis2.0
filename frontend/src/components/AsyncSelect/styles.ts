@@ -9,6 +9,14 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
 
+  .css-yk16xz-control {
+    border: 0;
+  }
+
+  .css-1pahdxg-control {
+    border: 0;
+  }
+
   .select {
     border-radius: 10px;
     border: 2px solid #232312;

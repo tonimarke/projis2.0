@@ -19,7 +19,9 @@ class PessoaRepository implements IPessoaRepository {
   }
 
   public async findAll(): Promise<Pessoa[] | undefined> {
-    const pessoas = await this.ormRepository.find();
+    const pessoas = await this.ormRepository.find({
+      relations: ['tipo_de_pessoa'],
+    });
 
     return pessoas;
   }

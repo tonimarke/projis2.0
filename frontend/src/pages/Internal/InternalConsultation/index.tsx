@@ -1,5 +1,6 @@
+import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -8,13 +9,26 @@ import api from '../../../services/api';
 
 import { Container, Content, TablePerson } from './styles';
 
+interface Person {
+  id: string;
+  nome: string;
+  email: string;
+  tipo_de_pessoa: {
+    id: string;
+    tipo_de_pessoa: string;
+  }
+}
+
 function InternalConsultation() {
-  const formRef = useRef(null);
+  const [users, setUsers] = useState<Person[]>([]);
+  const formRef = useRef<FormHandles>(null);
 
   const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('usuarios');
+    const response = await api.get('pessoas');
 
     console.log(response.data);
+
+    setUsers(response.data);
   }, []);
 
   return (
@@ -25,7 +39,7 @@ function InternalConsultation() {
 
         <Form ref={formRef} onSubmit={hanbleSubmitForm}>
           <Input name="search" placeholder="Buscar...." />
-          <Button>Buscar</Button>
+          <Button type="submit">Buscar</Button>
         </Form>
 
         <TablePerson>
@@ -38,17 +52,13 @@ function InternalConsultation() {
           </thead>
 
           <tbody>
-            <tr>
-              <td>José</td>
-              <td>lol@email.com</td>
-              <td>Faxineiro</td>
-            </tr>
-
-            <tr>
-              <td>Maria</td>
-              <td>lol@email.com</td>
-              <td>Faxineiro</td>
-            </tr>
+            {users.map(user => (
+              <tr key={user.id}>
+                <td>{user.nome}</td>
+                <td>{user.email}</td>
+                <td>{user.tipo_de_pessoa.tipo_de_pessoa}</td>
+              </tr>
+            ))}
           </tbody>
         </TablePerson>
       </Content>
