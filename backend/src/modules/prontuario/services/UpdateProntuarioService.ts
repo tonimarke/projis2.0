@@ -14,6 +14,13 @@ class UpdateProntuarioService {
     id,
     motivo_procura,
     dec_hipo,
+    telefone,
+    gasto_familiar,
+    status_habitacao,
+    status_saude,
+    valor_bens_imoveis,
+    valor_bens_moveis,
+    sinotico,
     data_abertura,
     data_encerramento,
   }: IUpdateProntuarioDTO): Promise<Prontuario> {
@@ -25,6 +32,13 @@ class UpdateProntuarioService {
 
     prontuario.motivo_procura = motivo_procura;
     prontuario.dec_hipo = dec_hipo;
+    prontuario.telefone = telefone;
+    prontuario.gasto_familiar = gasto_familiar;
+    prontuario.status_habitacao = status_habitacao;
+    prontuario.status_saude = status_saude;
+    prontuario.valor_bens_imoveis = valor_bens_imoveis;
+    prontuario.valor_bens_moveis = valor_bens_moveis;
+    prontuario.sinotico = sinotico;
     prontuario.data_abertura = data_abertura;
     prontuario.data_encerramento = data_encerramento;
 

@@ -3,11 +3,15 @@ export default interface ICreateProntuarioDTO {
   dec_hipo: string;
   data_abertura: Date;
   data_encerramento: Date;
+  telefone: string;
+  gasto_familiar: string;
+  status_habitacao: string;
+  status_saude: string;
+  valor_bens_imoveis: string;
+  valor_bens_moveis: string;
+  sinotico: string;
   acao_id: string;
   estagiario_id: string;
   encaminhado_por_id: string;
   entrevistado_por_id: string;
-  orcamento_familiar_id: string;
-  habitacao_id: string;
-  declaracao_saude_id: string;
 }
