@@ -9,7 +9,7 @@ import api from '../../../services/api';
 
 import { Container, Content, TablePerson } from './styles';
 
-interface Person {
+interface Counterpert {
   id: string;
   nome: string;
   email: string;
@@ -19,8 +19,8 @@ interface Person {
   }
 }
 
-function InternalConsultation() {
-  const [users, setUsers] = useState<Person[]>([]);
+function CounterpartConsultation() {
+  const [users, setUsers] = useState<Counterpert[]>([]);
   const formRef = useRef<FormHandles>(null);
 
   const hanbleSubmitForm = useCallback(async () => {
@@ -35,7 +35,7 @@ function InternalConsultation() {
     <Container>
       <Menu />
       <Content>
-        <h1>Consulta dos internos</h1>
+        <h1>Consulta das partes contraria</h1>
 
         <Form ref={formRef} onSubmit={hanbleSubmitForm}>
           <Input name="search" placeholder="Buscar...." />
@@ -66,4 +66,4 @@ function InternalConsultation() {
   );
 };
 
-export default InternalConsultation;
+export default CounterpartConsultation;

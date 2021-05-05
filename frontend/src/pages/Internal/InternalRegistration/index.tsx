@@ -3,14 +3,14 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
+import api from '../../../services/api';
+
 import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import AsyncSelect from '../../../components/AsyncSelect';
 
 import { Container, Content, InputStyle } from './styles';
-
-import api from '../../../services/api';
 
 interface Tipo_de_Pessoa {
   id: string;

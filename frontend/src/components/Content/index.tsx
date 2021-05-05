@@ -2,10 +2,7 @@ import { Container, Grid } from './styles';
 
 import Card from '../Card';
 
-interface ContentProps {
-}
-
-function Content({ }: ContentProps) {
+function Content() {
   return (
     <Container>
       <h1>Início - Bem vindo!</h1>
@@ -21,16 +18,16 @@ function Content({ }: ContentProps) {
         <Card
           ps={['Clientes']}
           links={[
-            { label: "Cadastro", to:"" },
-            { label: "Consulta", to:"" }
+            { label: "Cadastro", to:"/client_registration" },
+            { label: "Consulta", to:"/client_consultation" }
           ]}
         />
 
         <Card
           ps={['Partes Contrarias']}
           links={[
-            { label: "Cadastro", to:"" },
-            { label: "Consulta", to:"" }
+            { label: "Cadastro", to:"/counterpart_registration" },
+            { label: "Consulta", to:"/counterpart_consultation" }
           ]}
         />
 
