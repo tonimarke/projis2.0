@@ -11,16 +11,20 @@ export default class Permissaoes implements Seeder {
       .into(Permissao)
       .values([
         {
-          nome: 'Criar estado civil',
+          nome: 'Cadastrar estado civil',
+          descricao: 'Administrador pode cadastrar estado civil',
         },
         {
           nome: 'Alterar estado civil',
+          descricao: 'Administrador pode alterar estado civil',
         },
         {
           nome: 'Consultar estado civil',
+          descricao: 'Administrador pode consultar estado civil',
         },
         {
           nome: 'Deletar estado civil',
+          descricao: 'Administrador pode deletar estado civil',
         },
       ])
       .execute();
