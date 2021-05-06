@@ -11,6 +11,8 @@ import ClientRegistration from '../pages/Client/ClientRegistration';
 import ClientConsultation from '../pages/Client/ClientConsultation';
 import CounterpartRegistration from '../pages/Counterpart/CounterpartRegistration';
 import CounterpartConsultation from '../pages/Counterpart/CounterpartConsultation';
+import ActionRegistration from '../pages/Action/ActionRegistration';
+import ActionConsultation from '../pages/Action/ActionConsultation';
 
 const Routes: React.FC = () => (
   <BrowserRouter>
@@ -23,6 +25,8 @@ const Routes: React.FC = () => (
       <Route path="/client_consultation" component={ClientConsultation} isPrivate />
       <Route path="/counterpart_registration" component={CounterpartRegistration} isPrivate />
       <Route path="/counterpart_consultation" component={CounterpartConsultation} isPrivate />
+      <Route path="/action_registration" component={ActionRegistration} isPrivate />
+      <Route path="/action_consultation" component={ActionConsultation} isPrivate />
     </Switch>
   </BrowserRouter>
 );

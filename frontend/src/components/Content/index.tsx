@@ -34,8 +34,8 @@ function Content() {
         <Card
           ps={['Ações']}
           links={[
-            { label: "Cadastro", to:"" },
-            { label: "Consulta", to:"" }
+            { label: "Cadastro", to:"/action_registration" },
+            { label: "Consulta", to:"/action_consultation" }
           ]}
         />
 
