@@ -19,19 +19,18 @@ export default function AsyncSelect({ name, label, ...rest }: AsyncSelectProps) 
       name: fieldName,
       ref: selectRef.current,
       getValue: (ref: any) => {
-        console.log(ref);
         if (rest.isMulti) {
-          if (!ref.select.state.value) {
+          if (!ref.state.value.value) {
             return [];
           }
-          return ref.select.state.value.map(
+          return ref.state.value.value.map(
             (option: OptionTypeBase) => option.value,
           );
         }
-        if (!ref.select.state.value) {
+        if (!ref.state.value.value) {
           return '';
         }
-        return ref.select.state.value.value;
+        return ref.state.value.value;
       },
     });
   }, [fieldName, registerField, rest.isMulti]);
