@@ -21,7 +21,9 @@ class ProntuarioRepository implements IProntuarioRepository {
   }
 
   public async findAll(): Promise<Prontuario[] | undefined> {
-    const prontuarios = await this.ormRepository.find();
+    const prontuarios = await this.ormRepository.find({
+      relations: ['acao', 'estagiarios', 'encaminhados', 'entrevistados'],
+    });
 
     return prontuarios;
   }
