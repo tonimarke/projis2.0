@@ -3,6 +3,8 @@ import CreatePessoaService from '../../../services/CreatePessoaService';
 import DeletePessoaService from '../../../services/DeletePessoaService';
 import FindAllPessoaService from '../../../services/FindAllPessoaService';
 import FindOnePessoaService from '../../../services/FindOnePessoaService';
+import FindByTypePersoPessoaService from '../../../services/FindByTypePersoPessoaService';
+import FindByTypePersonSearchPessoaService from '../../../services/FindByTypePersonSearchPessoaService';
 import UpdatePessoaService from '../../../services/UpdatePessoaService';
 import PessoaRepository from '../../typeorm/repositories/PessoaRepository';
 
@@ -85,6 +87,39 @@ class PessoaController {
     const findOnePessoa = new FindOnePessoaService(pessoaRepository);
 
     const pessoa = await findOnePessoa.execute(id);
+
+    return res.json(pessoa);
+  }
+
+  public async findByTypePerson(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { name } = req.params;
+
+    const pessoaRepository = new PessoaRepository();
+
+    const findByTypePerson = new FindByTypePersoPessoaService(pessoaRepository);
+
+    const pessoa = await findByTypePerson.execute(name);
+
+    return res.json(pessoa);
+  }
+
+  public async findByTypePersonSearch(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { name } = req.params;
+    const search = String(req.query.search);
+
+    const pessoaRepository = new PessoaRepository();
+
+    const findByTypePerson = new FindByTypePersonSearchPessoaService(
+      pessoaRepository,
+    );
+
+    const pessoa = await findByTypePerson.execute(name, search);
 
     return res.json(pessoa);
   }

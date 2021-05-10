@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import CreateAcaoService from '../../../services/CreateAcaoService';
 import FindAllAcaoService from '../../../services/FindAllAcaoService';
 import FindOneAcaoService from '../../../services/FindOneAcaoService';
+import FindByActionSearchAcaoService from '../../../services/FindByActionSearchAcaoService';
 import UpdateAcaoService from '../../../services/UpdateAcaoService';
 import DeleteAcaoService from '../../../services/DeleteAcaoService';
 
@@ -58,6 +59,23 @@ class AcaoController {
     const acao = await findOneAcao.execute(id);
 
     return res.json(acao);
+  }
+
+  public async findByActionSearch(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const search = String(req.query.search);
+
+    const acaoRepository = new AcaoRepository();
+
+    const findByActionSearch = new FindByActionSearchAcaoService(
+      acaoRepository,
+    );
+
+    const acoes = await findByActionSearch.execute(search);
+
+    return res.json(acoes);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {

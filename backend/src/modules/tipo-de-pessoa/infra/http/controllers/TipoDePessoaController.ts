@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import CreateTipoDePessoaService from '../../../services/CreateTipoDePessoaService';
 import FindAllTipoDePessoaService from '../../../services/FindAllTipoDePessoaService';
 import FindOneTipoDePessoaService from '../../../services/FindOneTipoDePessoaService';
+import FindByNameTipoDePessoaService from '../../../services/FindByNameTipoDePessoaService';
 import UpdateTipoDePessoaService from '../../../services/UpdateTipoDePessoaService';
 import DeleteTipoDePessoaService from '../../../services/DeleteTipoDePessoaService';
 
@@ -51,6 +52,20 @@ class TipoDePessoaController {
     );
 
     const tipoDePessoa = await findOneTipoDePessoa.execute(id);
+
+    return res.json(tipoDePessoa);
+  }
+
+  public async findByName(req: Request, res: Response): Promise<Response> {
+    const { tipo_de_pessoa } = req.params;
+
+    const tipoDePessoaRepository = new TipoDePessoaRepository();
+
+    const findByNameTipoDePessoa = new FindByNameTipoDePessoaService(
+      tipoDePessoaRepository,
+    );
+
+    const tipoDePessoa = await findByNameTipoDePessoa.execute(tipo_de_pessoa);
 
     return res.json(tipoDePessoa);
   }

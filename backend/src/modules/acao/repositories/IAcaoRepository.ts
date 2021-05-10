@@ -5,6 +5,7 @@ export default interface IAcaoRepository {
   create(dataAcao: ICreateAcaoDTO): Promise<Acao>;
   findAll(): Promise<Acao[] | undefined>;
   findById(id: string): Promise<Acao | undefined>;
+  findByActionSearch(search: string): Promise<Acao[] | undefined>;
   save(dataAcao: ICreateAcaoDTO): Promise<void>;
   delete(id: string): Promise<string>;
 }
