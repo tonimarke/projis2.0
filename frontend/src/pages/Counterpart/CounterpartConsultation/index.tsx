@@ -19,23 +19,36 @@ interface Counterpert {
   }
 }
 
+interface CounterpartConsultationForm {
+  search: string;
+}
+
 function CounterpartConsultation() {
   const [users, setUsers] = useState<Counterpert[]>([]);
   const formRef = useRef<FormHandles>(null);
 
-  const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('pessoas');
-
-    console.log(response.data);
-
-    setUsers(response.data);
+  const hanbleSubmitForm = useCallback(async (data: CounterpartConsultationForm) => {
+    console.log(data.search);
+    try {
+      if (data.search) {
+        const response = await api.get(`pessoas_search/Parte Contraria/?search=${data.search}`);
+        
+        setUsers(response.data);
+      } else {
+        const response = await api.get(`pessoas_type/Parte Contraria`);
+        
+        setUsers(response.data);
+      }
+    } catch (err) {
+      setUsers([]);
+    }
   }, []);
 
   return (
     <Container>
       <Menu />
       <Content>
-        <h1>Consulta das partes contraria</h1>
+        <h1>Consulta das partes contrária</h1>
 
         <Form ref={formRef} onSubmit={hanbleSubmitForm}>
           <Input name="search" placeholder="Buscar...." />

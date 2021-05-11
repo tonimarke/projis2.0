@@ -24,7 +24,7 @@ function Content() {
         />
 
         <Card
-          ps={['Partes Contrarias']}
+          ps={['Partes Contrárias']}
           links={[
             { label: "Cadastro", to:"/counterpart_registration" },
             { label: "Consulta", to:"/counterpart_consultation" }
@@ -47,9 +47,7 @@ function Content() {
           ]}
         />
 
-        <Card
-          ps={['Dados']}
-        />
+
       </Grid>
     </Container>
   );

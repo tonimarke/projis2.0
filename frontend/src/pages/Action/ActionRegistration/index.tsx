@@ -47,15 +47,15 @@ function ActionRegistration() {
     <Container>
       <Menu />
       <Content>
-        <h1>Cadastro dos internos</h1>
+        <h1>Cadastro das ações</h1>
 
         <Form ref={formRef} onSubmit={() => {}} >
           <InputStyle>
-            <Input name="previdencias" label="Previdencias" placeholder="Insira a previdencia...." />
             <Input name="data" label="Data de Atendimento" placeholder="Insira a data de atendimento...." />
             <Input name="cliente" label="Nome do cliente" placeholder="Insira o nome do cliente...." />
-            <Input name="contraria" label="Nome da parte.contra" placeholder="Insira a parte contraria...." />
+            <Input name="contraria" label="Nome da parte contraria" placeholder="Insira a parte contraria...." />
             <AsyncSelect name="acao" options={acoes} label="Ações" />
+            <Input className="input-providencia" name="providencia" label="Providências" placeholder="Insira a providência...." />
           </InputStyle>
           <Button type="submit">Cadastro</Button>
         </Form>

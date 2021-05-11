@@ -10,6 +10,7 @@ export default interface IPessoaRepository {
     name: string,
     search: string,
   ): Promise<Pessoa[] | undefined>;
+  findByTypeESA(): Promise<Pessoa[] | undefined>;
   findByEmail(email: string): Promise<Pessoa | undefined>;
   save(dataPessoa: ICreatePessoaDTO): Promise<void>;
   delete(id: string): Promise<string>;

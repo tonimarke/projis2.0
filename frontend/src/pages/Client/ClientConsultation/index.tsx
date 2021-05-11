@@ -19,16 +19,29 @@ interface Client {
   }
 }
 
+interface ClienteConsultationForm {
+  search: string;
+}
+
 function ClientConsultation() {
   const [users, setUsers] = useState<Client[]>([]);
   const formRef = useRef<FormHandles>(null);
 
-  const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('pessoas');
+  const hanbleSubmitForm = useCallback(async (data: ClienteConsultationForm) => {
+    try {
+      if (data.search) {
+        const response = await api.get(`pessoas_search/Cliente/?search=${data.search}`);
+        
+        setUsers(response.data);
+      } else {
+        const response = await api.get(`pessoas_type/Cliente`);
+        
+        setUsers(response.data);
+      }
+    } catch(err) {
+      setUsers([]);
+    }
 
-    console.log(response.data);
-
-    setUsers(response.data);
   }, []);
   return (
     <Container>

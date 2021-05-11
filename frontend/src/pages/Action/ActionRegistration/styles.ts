@@ -20,6 +20,11 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
 
+    .input-providencia {
+      height: 100px;
+      width: 300px;
+    }
+
     button {
       margin-top: auto;
       max-width: 300px;

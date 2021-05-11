@@ -81,6 +81,15 @@ class PessoaRepository implements IPessoaRepository {
     return pessoa;
   }
 
+  public async findByTypeESA(): Promise<Pessoa[] | undefined> {
+    const pessoas = await this.ormRepository.find({
+      relations: ['tipo_de_pessoa'],
+      // where: [{ tipo_de_pessoa: { tipo_de_pessoa: 'Estagiario' } }],
+    });
+
+    return pessoas;
+  }
+
   /*
   public async findByTypePerson(
     name: string,

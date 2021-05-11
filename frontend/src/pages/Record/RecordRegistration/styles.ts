@@ -20,6 +20,17 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
 
+    .input-sinotico {
+      height: 100px;
+      width: 300px;
+      display: flex;
+      ::placeholder,
+      ::-webkit-input-placeholder {
+        align-self: flex-end;
+        justify-content: flex-end;
+      }
+    }
+
     button {
       margin-top: auto;
       max-width: 300px;

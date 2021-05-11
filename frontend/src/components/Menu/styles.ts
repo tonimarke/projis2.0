@@ -26,6 +26,6 @@ export const NavIcons = styled.div`
   margin-bottom: 50px;
 
   svg {
-    margin-top: 50px;
+    margin-top: 60px;
   }
 `;

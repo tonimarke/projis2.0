@@ -44,7 +44,7 @@ function RecordConsultation() {
     <Container>
       <Menu />
       <Content>
-        <h1>Consulta dos internos</h1>
+        <h1>Consulta dos prontuários</h1>
 
         <Form ref={formRef} onSubmit={hanbleSubmitForm}>
           <Input name="search" placeholder="Buscar...." />

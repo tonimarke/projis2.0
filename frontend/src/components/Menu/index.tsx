@@ -1,5 +1,5 @@
 import { IconBaseProps } from 'react-icons/lib';
-import { FaUserTie, FaUser, FaUserTimes, FaGavel, FaFile, FaCog } from 'react-icons/fa';
+import { FaUserTie, FaUser, FaUserTimes, FaGavel, FaFile } from 'react-icons/fa';
 
 import { Container, NavIcons } from './styles';
 
@@ -24,7 +24,6 @@ function Menu({ icon }: MenuProps) {
         <FaUserTimes size={40} color="#000" />
         <FaGavel size={40} color="#000" />
         <FaFile size={40} color="#000" />
-        <FaCog size={40} color="#000" />
       </NavIcons>
     </Container>
   );

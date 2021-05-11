@@ -24,7 +24,7 @@ function InternalConsultation() {
   const formRef = useRef<FormHandles>(null);
 
   const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('pessoas');
+    const response = await api.get('pessoas_typeesa');
 
     console.log(response.data);
 

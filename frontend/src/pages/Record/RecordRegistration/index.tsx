@@ -86,25 +86,25 @@ function RecordRegistration() {
     <Container>
       <Menu />
       <Content>
-        <h1>Cadastro dos internos</h1>
+        <h1>Cadastro dos prontuários</h1>
 
         <Form ref={formRef} onSubmit={() => {}} >
           <InputStyle>
-            <Input name="motivo" label="Motivo da Produra" placeholder="Insira o motivo...." />
-            <Input name="dec" label="Dec hipo" placeholder="Insira o Dec hipo...." />
+            <Input name="motivo" label="Motivo da Procura" placeholder="Insira o motivo da procura...." />
             <Input name="abertura" label="Data da Abertura" placeholder="Insira a data da abertura...." />
             <Input name="encerramento" label="Data de Encerramento" placeholder="Insira a data de encerramento...." />
             <Input name="gasto" label="Gasto Familiar" placeholder="Insira o gasto familiar...." />
             <Input name="familia" label="Status da Familia" placeholder="Insira o status da familia...." />
-            <Input name="saude" label="Status da Saude" placeholder="Insira o status de saude...." />
+            <Input name="saude" label="Status da Saúde" placeholder="Insira o status de saude...." />
             <Input name="imovel" label="Valor do bens imoveis" placeholder="Insira o valor total do bem imovel...." />
             <Input name="movel" label="Valor do bens moveis" placeholder="Insira o valor total do bem movel...." />
-            <Input name="sinotico" label="Sinotico" placeholder="Insira o sinotico...." />
 
             <AsyncSelect name="acao" options={actions} label="Ação" />
-            <AsyncSelect name="estagiario" options={estagiarios} label="Estagiarios" />
+            <AsyncSelect name="estagiario" options={estagiarios} label="Estagiário" />
             <AsyncSelect name="encaminhado" options={encaminhados} label="Encaminhado" />
             <AsyncSelect name="entrevistado" options={entrevistados} label="Entrevistado" />
+
+            <Input className="input-sinotico" name="sinotico" label="Sinótico" placeholder="Insira o sinótico...." />
           </InputStyle>
           <Button type="submit">Cadastro</Button>
         </Form>

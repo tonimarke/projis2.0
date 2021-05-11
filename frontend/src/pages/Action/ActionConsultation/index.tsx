@@ -21,23 +21,37 @@ interface Action {
   }
 }
 
+interface ActionConsultationForm {
+  search: string;
+}
+
 function ActionConsultation() {
   const [actions, setActions] = useState<Action[]>([]);
   const formRef = useRef<FormHandles>(null);
 
-  const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('acoes');
+  const hanbleSubmitForm = useCallback(async (data: ActionConsultationForm) => {
+    if (data.search) {
+      const response = await api.get(`acao_search/?search=${data.search}`);
+      
+      console.log(response.data);
+      
+      setActions(response.data);
+    } else {
+      const response = await api.get(`acoes`);
+      
+      console.log(response.data);
+      
+      setActions(response.data);
+    }
 
-    console.log(response.data);
 
-    setActions(response.data);
   }, []);
 
   return (
     <Container>
       <Menu />
       <Content>
-        <h1>Consulta dos internos</h1>
+        <h1>Consulta das ações</h1>
 
         <Form ref={formRef} onSubmit={hanbleSubmitForm}>
           <Input name="search" placeholder="Buscar...." />
@@ -49,7 +63,7 @@ function ActionConsultation() {
             <tr>
               <th>Cliente</th>
               <th>Parte Contraria</th>
-              <th>Providencias</th>
+              <th>Providências</th>
               <th>Data do Atendimento</th>
             </tr>
           </thead>

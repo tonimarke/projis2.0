@@ -5,6 +5,7 @@ import FindAllPessoaService from '../../../services/FindAllPessoaService';
 import FindOnePessoaService from '../../../services/FindOnePessoaService';
 import FindByTypePersoPessoaService from '../../../services/FindByTypePersoPessoaService';
 import FindByTypePersonSearchPessoaService from '../../../services/FindByTypePersonSearchPessoaService';
+import FindByTypeESAPessoaService from '../../../services/FindByTypeESAPessoaService';
 import UpdatePessoaService from '../../../services/UpdatePessoaService';
 import PessoaRepository from '../../typeorm/repositories/PessoaRepository';
 
@@ -120,6 +121,16 @@ class PessoaController {
     );
 
     const pessoa = await findByTypePerson.execute(name, search);
+
+    return res.json(pessoa);
+  }
+
+  public async findByTypeESA(req: Request, res: Response): Promise<Response> {
+    const pessoaRepository = new PessoaRepository();
+
+    const findByTypeESA = new FindByTypeESAPessoaService(pessoaRepository);
+
+    const pessoa = await findByTypeESA.execute();
 
     return res.json(pessoa);
   }
