@@ -1,6 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useCallback, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -66,9 +67,11 @@ function ClientConsultation() {
           <tbody>
             {users.map(user => (
               <tr key={user.id}>
-                <td>{user.nome}</td>
-                <td>{user.email}</td>
-                <td>{user.tipo_de_pessoa.tipo_de_pessoa}</td>
+                {/*<Link to="/client_information/">*/}
+                  <td>{user.nome}</td>
+                  <td>{user.email}</td>
+                  <td>{user.tipo_de_pessoa.tipo_de_pessoa}</td>
+                {/*</Link>*/}
               </tr>
             ))}
           </tbody>
