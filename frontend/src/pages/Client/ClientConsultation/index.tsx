@@ -1,7 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -27,6 +27,7 @@ interface ClienteConsultationForm {
 function ClientConsultation() {
   const [users, setUsers] = useState<Client[]>([]);
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const hanbleSubmitForm = useCallback(async (data: ClienteConsultationForm) => {
     try {
@@ -44,6 +45,11 @@ function ClientConsultation() {
     }
 
   }, []);
+
+  const handleTableInformation = useCallback((id: string) => {
+    history.push(`/client_information/${id}`);
+  }, [history]);
+
   return (
     <Container>
       <Menu />
@@ -66,12 +72,10 @@ function ClientConsultation() {
 
           <tbody>
             {users.map(user => (
-              <tr key={user.id}>
-                {/*<Link to="/client_information/">*/}
+              <tr key={user.id} onClick={() => handleTableInformation(user.id)}>
                   <td>{user.nome}</td>
                   <td>{user.email}</td>
                   <td>{user.tipo_de_pessoa.tipo_de_pessoa}</td>
-                {/*</Link>*/}
               </tr>
             ))}
           </tbody>

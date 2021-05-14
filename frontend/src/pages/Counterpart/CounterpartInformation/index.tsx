@@ -1,5 +1,6 @@
-import { FormHandles } from '@unform/core';
 import { useEffect, useRef, useState } from 'react';
+import { FormHandles, Scope } from '@unform/core';
+import { useRouteMatch } from 'react-router';
 
 import api from '../../../services/api';
 
@@ -8,11 +9,26 @@ import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 
-import { Container, Content, InputGroup, Form, ButtonGroup } from './styles';
+import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
+
+interface IdParams {
+  id: string;
+}
+
+interface IPartContraria {
+  nome: string;
+  rg: string;
+  cpf: string;
+}
 
 interface EstadoCivil {
   id: string;
   estado_civil: string;
+}
+
+interface TipoDePessoa {
+  id: string;
+  tipo_de_pessoa: string;
 }
 
 interface Options {
@@ -22,78 +38,102 @@ interface Options {
 
 function CounterpartInformation() {
   const formRef = useRef<FormHandles>(null);
+  const { params } = useRouteMatch<IdParams>();
+  const [partContraria, setPartContraria] = useState<IPartContraria>();
+  
   const [civil, setCivil] = useState<Options[]>([]);
+  const [tipoDePessoa, setTipoDePessoa] = useState<Options[]>([]);
 
   useEffect(() => {
+    async function loadParteContraria() {
+      const response = await api.get(`/pessoa/${params.id}`)
+      
+      setPartContraria(response.data);
+    }
+
     async function loadData() {
-      const response = await api.get<EstadoCivil[]>('/estados_civis');
+      const [civilRes, tipoDePessoaRes] = await Promise.all([
+        api.get<EstadoCivil[]>('/estados_civis'),
+        api.get<TipoDePessoa[]>('/tipos_de_pessoas')
+      ]);
     
-      const civilOptions = response.data.map(option => {
+      const civilOptions = civilRes.data.map(option => {
         return {
           label: option.estado_civil,
           value: option.id
         }
       });
 
+      const tipoDePessoaOptions = tipoDePessoaRes.data.map(option => {
+        return {
+          label: option.tipo_de_pessoa,
+          value: option.id,
+        }
+      });
+
       setCivil(civilOptions);
+      setTipoDePessoa(tipoDePessoaOptions);
     }
 
+    loadParteContraria();
     loadData();
-  }, []);
+  }, [params.id]);
 
   return (
     <Container>
       <Menu />
       <Content>
-        <Form ref={formRef} onSubmit={() => {}}>
-          <InputGroup lg={4}>
-            <Input name="Nome" label="Nome do Cliente" placeholder="Nome do cliente" />
-          </InputGroup>
-          <InputGroup lg={4}>
-            <Input name="rg" label="RG" placeholder="RG do cliente" />
-          </InputGroup>
-          <InputGroup lg={4}>
-            <Input name="cpf" label="CPF" placeholder="CPF do cliente" />
-          </InputGroup>
-          <InputGroup>
-            <Input name="ocupacao" label="Ocupação" placeholder="Ocupação" />
-          </InputGroup>
+        <Form initialData={partContraria} ref={formRef} onSubmit={() => {}}>
+          <Row>
+            <InputGroup lg={4}>
+              <Input name="nome" label="Nome do Cliente" placeholder="Nome do cliente" />
+            </InputGroup>
+            <InputGroup lg={4}>
+              <Input name="rg" label="RG" placeholder="RG do cliente" />
+            </InputGroup>
+            <InputGroup lg={4}>
+              <Input name="cpf" label="CPF" placeholder="CPF do cliente" />
+            </InputGroup>
+            <InputGroup>
+              <Input name="ocupacao" label="Ocupação" placeholder="Ocupação" />
+            </InputGroup>
 
-          <InputGroup>
-            <AsyncSelect name="estado_civil_id" options={civil} label="Estado Civil" />
-          </InputGroup>
-          <InputGroup>
-            <Input name="tipo_de_pessoa" label="Cargo" placeholder="Cargo" />
-          </InputGroup>
-      
-          <InputGroup>
-            <Input name="logradouro" label="Logradouro" placeholder="Logradouro" />
-          </InputGroup>
-          <InputGroup>
-            <Input name="numero" label="Número" placeholder="Número" />
-          </InputGroup>
-          <InputGroup>
-            <Input name="bairro" label="Bairro" placeholder="Bairro" />
-          </InputGroup>
-          <InputGroup>
-            <Input name="complemento" label="Complemento" placeholder="Complemento" />
-          </InputGroup>
-          <InputGroup>
-            <Input name="cep" label="CEP" placeholder="CEP" />
-          </InputGroup>
-           <InputGroup>
-            <Input name="cidade" label="Cidade" placeholder="Cidade" />
-          </InputGroup>
-          <InputGroup>
-            <Input name="estado" label="Estado" placeholder="Estado" />
-          </InputGroup>
+            <InputGroup>
+              <AsyncSelect name="estado_civil_id" options={civil} label="Estado Civil" />
+            </InputGroup>
+            <InputGroup>
+              <AsyncSelect name="tipo_de_pessoa_id" options={tipoDePessoa} label="Cargo" />
+            </InputGroup>
 
+            <Scope path="endereco">
+              <InputGroup>
+                <Input name="logradouro" label="Logradouro" placeholder="Logradouro" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="numero" label="Número" placeholder="Número" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="bairro" label="Bairro" placeholder="Bairro" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="complemento" label="Complemento" placeholder="Complemento" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="cep" label="CEP" placeholder="CEP" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="cidade" label="Cidade" placeholder="Cidade" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="estado" label="Estado" placeholder="Estado" />
+              </InputGroup>
+            </Scope>
+          </Row>
           <ButtonGroup>
             <Button className="first-button" type="submit">Salvar</Button>
 
             <Button className="last-button" type="submit">Delete</Button>
           </ButtonGroup>
-
         </Form>
       </Content>
     </Container>

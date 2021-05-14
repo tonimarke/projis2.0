@@ -34,23 +34,23 @@ const Routes: React.FC = () => (
       
       <Route path="/internal_registration" component={InternalRegistration} isPrivate />
       <Route path="/internal_consultation" component={InternalConsultation} isPrivate />
-      <Route path="/internal_information" component={InternalInformation} isPrivate />
+      <Route path="/internal_information/:id" component={InternalInformation} isPrivate />
 
       <Route path="/client_registration" component={ClientRegistration} isPrivate />
       <Route path="/client_consultation" component={ClientConsultation} isPrivate />
-      <Route path="/client_information" component={ClientInformation} isPrivate />
+      <Route path="/client_information/:id" component={ClientInformation} isPrivate />
 
       <Route path="/counterpart_registration" component={CounterpartRegistration} isPrivate />
       <Route path="/counterpart_consultation" component={CounterpartConsultation} isPrivate />
-      <Route path="/counterpart_information" component={CounterpartInformation} isPrivate />
+      <Route path="/counterpart_information/:id" component={CounterpartInformation} isPrivate />
 
       <Route path="/action_registration" component={ActionRegistration} isPrivate />
       <Route path="/action_consultation" component={ActionConsultation} isPrivate />
-      <Route path="/action_information" component={ActionInformation} isPrivate />
+      <Route path="/action_information/:id" component={ActionInformation} isPrivate />
 
       <Route path="/record_registration" component={RecordRegistration} isPrivate />
       <Route path="/record_consultation" component={RecordConsultation} isPrivate />
-      <Route path="/record_information" component={RecordInformation} isPrivate />
+      <Route path="/record_information/:id" component={RecordInformation} isPrivate />
     </Switch>
   </BrowserRouter>
 );

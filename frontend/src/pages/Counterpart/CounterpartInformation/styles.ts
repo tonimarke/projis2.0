@@ -19,6 +19,12 @@ export const Content = styled.div`
 
 export const Form = styled(FormBase)`
   height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+`;
+
+export const Row = styled.div`
   --gap: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -45,7 +51,7 @@ export const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
 
-  padding: 0 var(--gap) var(--gap) 0;
+  padding: 20px;
 
   .first-button {
     margin-right: 8px;

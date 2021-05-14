@@ -1,6 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useCallback, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -28,6 +29,7 @@ interface ActionConsultationForm {
 function ActionConsultation() {
   const [actions, setActions] = useState<Action[]>([]);
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const hanbleSubmitForm = useCallback(async (data: ActionConsultationForm) => {
     if (data.search) {
@@ -46,6 +48,10 @@ function ActionConsultation() {
 
 
   }, []);
+
+  const handleTableInformation = useCallback((id: string) => {
+    history.push(`/action_information/${id}`);
+  }, [history]);
 
   return (
     <Container>
@@ -70,7 +76,7 @@ function ActionConsultation() {
 
           <tbody>
             {actions.map(action => (
-              <tr key={action.id}>
+              <tr key={action.id} onClick={() => handleTableInformation(action.id)}>
                 <td>{action.cliente.nome}</td>
                 <td>{action.parte_contraria.nome}</td>
                 <td>{action.providencias}</td>

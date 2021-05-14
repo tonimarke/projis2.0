@@ -8,7 +8,7 @@ import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import AsyncSelect from '../../../components/AsyncSelect';
 
-import { Container, Content, InputGroup, Form, ButtonGroup } from './styles';
+import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
 
 interface Tipo_de_Acao {
   id: string;
@@ -22,9 +22,16 @@ interface Options {
 
 function ActionInformation() {
   const formRef = useRef<FormHandles>(null);
-  const [acoes, setAcoes] = useState<Options[]>([]);
+  const [tipoDeAcoes, setTipoDeAcoes] = useState<Options[]>([]);
 
   useEffect(() => {
+    /*
+    async function loadAction() {
+      const response = await api.get<ICliente>(`/pessoa/${params.id}`);
+      
+      setCliente(response.data)
+    }
+    */
     async function loadTipoDePessoa () {
       const response = await api.get<Tipo_de_Acao[]>('tipos_acoes');
 
@@ -35,7 +42,7 @@ function ActionInformation() {
         };
       });
 
-      setAcoes(options);
+      setTipoDeAcoes(options);
     }
     
     loadTipoDePessoa();
@@ -46,22 +53,23 @@ function ActionInformation() {
       <Menu />
       <Content>
         <Form ref={formRef} onSubmit={() => {}}>
-          <InputGroup lg={4}>
-            <Input name="data" label="Data de Atendimento" placeholder="Insira a data de atendimento...." />
-          </InputGroup>
-          <InputGroup lg={4}>
-            <Input name="cliente" label="Nome do cliente" placeholder="Insira o nome do cliente...." />
-          </InputGroup>
-          <InputGroup lg={4}>
-            <Input name="contraria" label="Nome da parte contraria" placeholder="Insira a parte contraria...." />
-          </InputGroup>
-          <InputGroup>
-            <AsyncSelect name="acao" options={acoes} label="Ações" />
-          </InputGroup>
-          <InputGroup>
-            <Input className="input-providencia" name="providencia" label="Providências" placeholder="Insira a providência...." />
-          </InputGroup>
-      
+          <Row>
+            <InputGroup lg={4}>
+              <Input name="data" label="Data de Atendimento" placeholder="Insira a data de atendimento...." />
+            </InputGroup>
+            <InputGroup lg={4}>
+              <Input name="cliente" label="Nome do cliente" placeholder="Insira o nome do cliente...." />
+            </InputGroup>
+            <InputGroup lg={4}>
+              <Input name="contraria" label="Nome da parte contraria" placeholder="Insira a parte contraria...." />
+            </InputGroup>
+            <InputGroup>
+              <AsyncSelect name="acao" options={tipoDeAcoes} label="Ações" />
+            </InputGroup>
+            <InputGroup>
+              <Input className="input-providencia" name="providencia" label="Providências" placeholder="Insira a providência...." />
+            </InputGroup>
+          </Row>
           <ButtonGroup>
             <Button className="first-button" type="submit">Salvar</Button>
 

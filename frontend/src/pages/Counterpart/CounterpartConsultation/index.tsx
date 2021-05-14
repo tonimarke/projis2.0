@@ -1,6 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useCallback, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -26,6 +27,7 @@ interface CounterpartConsultationForm {
 function CounterpartConsultation() {
   const [users, setUsers] = useState<Counterpert[]>([]);
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const hanbleSubmitForm = useCallback(async (data: CounterpartConsultationForm) => {
     console.log(data.search);
@@ -43,6 +45,11 @@ function CounterpartConsultation() {
       setUsers([]);
     }
   }, []);
+
+  const handleTableInformation = useCallback((id: string) => {
+    history.push(`/counterpart_information/${id}`);
+  }, [history]);
+
 
   return (
     <Container>
@@ -66,7 +73,7 @@ function CounterpartConsultation() {
 
           <tbody>
             {users.map(user => (
-              <tr key={user.id}>
+              <tr key={user.id} onClick={()=> handleTableInformation(user.id)}>
                 <td>{user.nome}</td>
                 <td>{user.email}</td>
                 <td>{user.tipo_de_pessoa.tipo_de_pessoa}</td>

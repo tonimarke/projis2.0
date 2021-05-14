@@ -1,3 +1,4 @@
+import { darken } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -46,5 +47,13 @@ export const TablePerson = styled.table`
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #FAFAFA;
+  }
+
+  tbody tr {
+    cursor: pointer;
+    
+    &:hover {
+      background: ${darken(0.1, '#E5E5E5')};
+    }
   }
 `;
