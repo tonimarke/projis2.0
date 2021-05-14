@@ -27,7 +27,9 @@ class PessoaRepository implements IPessoaRepository {
   }
 
   public async findById(id: string): Promise<Pessoa | undefined> {
-    const pessoa = await this.ormRepository.findOne(id);
+    const pessoa = await this.ormRepository.findOne(id, {
+      relations: ['endereco', 'estado_civil', 'tipo_de_pessoa'],
+    });
 
     return pessoa;
   }
