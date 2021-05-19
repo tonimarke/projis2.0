@@ -15,6 +15,7 @@ export const Content = styled.div`
   width: 100%;
   background: #E5E5E5;
   overflow: hidden;
+  display: flex;
 `;
 
 export const Form = styled(FormBase)`

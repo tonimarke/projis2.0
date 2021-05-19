@@ -15,6 +15,7 @@ export const Content = styled.div`
   width: 100%;
   background: #E5E5E5;
   overflow: hidden;
+  display: flex;
 `;
 
 export const Form = styled(FormBase)`
@@ -22,6 +23,7 @@ export const Form = styled(FormBase)`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  margin-left: 10px;
 `;
 
 export const Row = styled.div`

@@ -109,7 +109,7 @@ function ClientRegistration() {
     cidade,
     estado,
 
-  }: ClientRegistrationFormData) => {
+  }: ClientRegistrationFormData, { reset }) => {
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
@@ -193,6 +193,7 @@ function ClientRegistration() {
         tipo_de_pessoa_id: tipoDePessoa.data.id,
       });
 
+      reset();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);

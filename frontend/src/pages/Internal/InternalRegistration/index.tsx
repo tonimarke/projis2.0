@@ -11,6 +11,7 @@ import Button from '../../../components/Button';
 import AsyncSelect from '../../../components/AsyncSelect';
 
 import { Container, Content, InputStyle } from './styles';
+import getValidationErrors from '../../../utils/getValidationErrors';
 
 interface Tipo_de_Pessoa {
   id: string;
@@ -27,6 +28,7 @@ interface InternalRegistrationFormData {
   rg: string;
   cpf: string;
   cargo: string;
+  tipo_de_pessoa_id: string;
 }
 
 function InternalRegistration() {
@@ -50,21 +52,44 @@ function InternalRegistration() {
     loadTipoDePessoa();
   }, []);
 ;
-  const handleSubmitForm = useCallback(async (data: InternalRegistrationFormData) => {
-    console.log(data);
+  const handleSubmitForm = useCallback(async ({nome, rg, cpf, tipo_de_pessoa_id}: InternalRegistrationFormData, { reset }) => {
 
-    /*
     try {
+      formRef.current?.setErrors({});
+
       const schema = Yup.object().shape({
         nome: Yup.string().required('Nome é obrigatorio'),
         rg: Yup.string().required('RG obrigatorio'),
-        cpf: Yup.string().required('RG obrigatorio'),
-        cargo: Yup.string().required('RG obrigatorio'),
+        cpf: Yup.string().required('CPF obrigatorio'),
+        tipo_de_pessoa_id: Yup.string().required('Cargo obrigatorio'),
       });
-    } catch (err) {
 
+      await schema.validate({
+        nome,
+        rg,
+        cpf,
+        tipo_de_pessoa_id
+      });
+
+      await api.post('/pessoa', {
+        nome,
+        rg,
+        cpf,
+        tipo_de_pessoa_id
+      });
+      
+      reset();
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        
+        formRef.current?.setErrors(errors);
+
+        return
+      }
     }
-    */
+  
+    
   }, []);
 
   return (
@@ -78,7 +103,7 @@ function InternalRegistration() {
             <Input name="nome" label="NOME" placeholder="Insira o nome...." />
             <Input name="rg" label="RG" placeholder="Insira o RG...." />
             <Input name="cpf" label="CPF" placeholder="Insira o CPF...." />
-            <AsyncSelect name="cargo" options={cargos} label="CARGO" />
+            <AsyncSelect name="tipo_de_pessoa_id" options={cargos} label="CARGO" />
           </InputStyle>
           <Button type="submit">Cadastro</Button>
         </Form>

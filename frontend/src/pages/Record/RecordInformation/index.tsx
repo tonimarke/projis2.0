@@ -1,4 +1,5 @@
 import { FormHandles } from '@unform/core';
+import { useRouteMatch } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 
 import api from '../../../services/api';
@@ -7,8 +8,13 @@ import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import AsyncSelect from '../../../components/AsyncSelect';
+import ButtonArrow from '../../../components/ButtonBack';
 
 import { Container, Content, InputGroup, Form, ButtonGroup } from './styles';
+
+interface IdParams {
+  id: string;
+}
 
 interface Options {
   label: string;
@@ -25,9 +31,17 @@ interface Person {
   nome: string; 
 }
 
+interface Prontuario {
+  id: string;
+  motivo_procura: string
+}
+
 
 function RecordInformation() {
   const formRef = useRef<FormHandles>(null);
+  const { params } = useRouteMatch<IdParams>();
+  const [prontuario, setProntuario] = useState<Prontuario>();
+
   const [actions, setActions] = useState<Options[]>([]);
   const [estagiarios, setEstagiarios] = useState<Options[]>([]);
   const [encaminhados, setEncaminhados] = useState<Options[]>([]);
@@ -37,11 +51,12 @@ function RecordInformation() {
   useEffect(() => {
     async function loadData () {
 
-      const [actionRes, estagiarioRes, encaminhadoRes, EntrevistadoRes ] = await Promise.all([
-        api.get<Actions[]>('acoes'),
-        api.get<Person[]>('pessoas'),
-        api.get<Person[]>('pessoas'),
-        api.get<Person[]>('pessoas'),
+      const [prontuarioRes, actionRes, estagiarioRes, encaminhadoRes, EntrevistadoRes ] = await Promise.all([
+        api.get<Prontuario>(`prontuario/${params.id}`),
+        api.get<Actions[]>('/acoes'),
+        api.get<Person[]>('/pessoas_type/Estagiário'),
+        api.get<Person[]>('/pessoas'),
+        api.get<Person[]>('/pessoas'),
       ]);
 
       const actionOptions = actionRes.data.map(option => {
@@ -72,6 +87,7 @@ function RecordInformation() {
         };
       });
 
+      setProntuario(prontuarioRes.data);
       setActions(actionOptions);
       setEstagiarios(estagiariOptions);
       setEncaminhados(encaminhadOptions);
@@ -79,36 +95,37 @@ function RecordInformation() {
     }
     
     loadData();
-  }, []);
+  }, [params.id]);
 
   return (
     <Container>
       <Menu />
       <Content>
-        <Form ref={formRef} onSubmit={() => {}}>
+        <ButtonArrow />
+        <Form initialData={prontuario} ref={formRef} onSubmit={() => {}}>
           <InputGroup lg={4}>
-            <Input name="motivo" label="Motivo da Procura" placeholder="Motivo da Procura" />
-          </InputGroup>
-          <InputGroup lg={4}>
-            <Input name="abertura" label="Data da Abertura" placeholder="Data da Abertura" />
+            <Input name="motivo_procura" label="Motivo da Procura" placeholder="Motivo da Procura" />
           </InputGroup>
           <InputGroup lg={4}>
-            <Input name="encerramento" label="Data de Encerramento" placeholder="Data de Encerramento" />
+            <Input name="data_abertura" label="Data da Abertura" placeholder="Data da Abertura" />
+          </InputGroup>
+          <InputGroup lg={4}>
+            <Input name="data_encerramento" label="Data de Encerramento" placeholder="Data de Encerramento" />
           </InputGroup>
           <InputGroup>
-            <Input name="gasto" label="Gasto Familiar" placeholder="Gasto Familiar" />
+            <Input name="gasto_familiar" label="Gasto Familiar" placeholder="Gasto Familiar" />
           </InputGroup>
           <InputGroup>
-            <Input name="familia" label="Status da Familia" placeholder="Status da Familia" />
+            <Input name="status_habitacao" label="Status da Familia" placeholder="Status da Familia" />
           </InputGroup>
           <InputGroup>
-            <Input name="saude" label="Status da Saúde" placeholder="Status da Saúde" />
+            <Input name="status_saude" label="Status da Saúde" placeholder="Status da Saúde" />
           </InputGroup>
           <InputGroup>
-            <Input name="imovel" label="Valor do bens imoveis" placeholder="Valor do bens imoveis" />
+            <Input name="valor_bens_imoveis" label="Valor do bens imoveis" placeholder="Valor do bens imoveis" />
           </InputGroup>
           <InputGroup>
-            <Input name="movel" label="Valor do bens moveis" placeholder="Valor do bens moveis" />
+            <Input name="valor_bens_moveis" label="Valor do bens moveis" placeholder="Valor do bens moveis" />
           </InputGroup>
           
           <InputGroup>

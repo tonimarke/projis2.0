@@ -1,11 +1,15 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useCallback, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
+
+import api from '../../../services/api';
+import formatDate from '../../../utils/formatDate';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import Menu from '../../../components/Menu';
-import api from '../../../services/api';
+
 
 import { Container, Content, TablePerson } from './styles';
 
@@ -28,17 +32,57 @@ interface Record {
   data_encerramento: Date;
 }
 
+interface IProntuarios {
+  id: string;
+  motivo_procura: string;
+  dec_hipo: string;
+  data_abertura: string;
+  data_encerramento: string;
+  telefone: string;
+  gasto_familiar: string;
+  status_habitacao: string;
+  status_saude: string;
+  valor_bens_imoveis: string;
+  valor_bens_moveis: string;
+  sinotico: string;
+  dateFormatOpen: string;
+  dateFormatClose: string;
+  estagiarios: {
+    nome: string;
+  }
+  encaminhados: {
+    nome: string;
+  }
+  entrevistados: {
+    nome: string;
+  }
+  acao: {
+    providencias: string;
+  }
+}
+
 function RecordConsultation() {
-  const [records, setRecords] = useState<Record[]>([]);
+  const [records, setRecords] = useState<IProntuarios[]>([]);
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('prontuarios');
+    const response = await api.get<IProntuarios[]>('prontuarios');
 
-    console.log(response.data);
+    const prontuarios = response.data.map(pront => {
+      return {
+        ...pront,
+        dateFormatOpen: formatDate(pront.data_abertura),
+        dateFormatClose: formatDate(pront.data_encerramento),
+      }
+    });
 
-    setRecords(response.data);
+    setRecords(prontuarios);
   }, []);
+
+  const handleTableInformation = useCallback((id: string) => {
+    history.push(`/record_information/${id}`);
+  }, [history]);
 
   return (
     <Container>
@@ -66,14 +110,14 @@ function RecordConsultation() {
 
           <tbody>
             {records.map(record => (
-              <tr key={record.id}>
-                <td>{record.motivo_produra}</td>
+              <tr key={record.id} onClick={() => handleTableInformation(record.id)}>
+                <td>{record.motivo_procura}</td>
                 <td>{record.estagiarios.nome}</td>
                 <td>{record.encaminhados.nome}</td>
                 <td>{record.entrevistados.nome}</td>
                 <td>{record.acao.providencias}</td>
-                <td>{record.data_abertura}</td>
-                <td>{record.data_encerramento}</td>
+                <td>{record.dateFormatOpen}</td>
+                <td>{record.dateFormatClose}</td>
               </tr>
             ))}
           </tbody>

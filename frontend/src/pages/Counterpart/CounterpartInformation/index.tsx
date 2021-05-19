@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormHandles, Scope } from '@unform/core';
-import { useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 import api from '../../../services/api';
 
@@ -8,6 +8,7 @@ import AsyncSelect from '../../../components/AsyncSelect';
 import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
+import ButtonArrow  from '../../../components/ButtonBack';
 
 import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
 
@@ -16,9 +17,35 @@ interface IdParams {
 }
 
 interface IPartContraria {
+  id: string;
   nome: string;
   rg: string;
   cpf: string;
+  ocupacao: string;
+
+  estado_civil_id: string;
+  tipo_de_pessoa_id: string;
+  endereco_id: string;
+
+  endereco: {
+    id: string;
+    logradouro: string;
+    numero: string;
+    bairro: string;
+    complemento: string;
+    cep: string;
+    cidade: string;
+    estado: string;
+  },
+  estado_civil: {
+    id: string;
+    estado_civil: string;
+  },
+  tipo_de_pessoa: {
+    id: string;
+    tipo_de_pessoa: string;
+  }
+
 }
 
 interface EstadoCivil {
@@ -36,8 +63,29 @@ interface Options {
   value: string;
 }
 
+interface CounterInformationFormData {
+  nome: string;
+  rg: string;
+  cpf: string;
+  ocupacao: string;
+
+  estado_civil_id: string;
+  tipo_de_pessoa_id: string;
+
+  endereco: {
+    logradouro: string;
+    numero: string;
+    bairro: string;
+    complemento: string;
+    cep: string;
+    cidade: string;
+    estado: string;
+  }
+}
+
 function CounterpartInformation() {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
   const { params } = useRouteMatch<IdParams>();
   const [partContraria, setPartContraria] = useState<IPartContraria>();
   
@@ -79,11 +127,63 @@ function CounterpartInformation() {
     loadData();
   }, [params.id]);
 
+  const handleFormSubmit = useCallback(async ({
+    nome,
+    rg,
+    cpf,
+    ocupacao,
+
+    estado_civil_id,
+    tipo_de_pessoa_id,
+
+    endereco: {
+      logradouro,
+      numero,
+      bairro,
+      complemento,
+      cep,
+      cidade,
+      estado,
+    }
+  }: CounterInformationFormData) => {
+    await api.put('/endereco', {
+      id: partContraria?.endereco_id,
+      logradouro,
+      numero,
+      bairro,
+      complemento,
+      cep,
+      cidade,
+      estado
+    });
+
+    await api.put('/pessoa', {
+      id: partContraria?.id,
+      nome,
+      rg,
+      cpf,
+      ocupacao,
+      estado_civil_id,
+      tipo_de_pessoa_id,
+    });
+
+  }, [partContraria?.endereco_id, partContraria?.id]);
+
+  const handleDeleteCounterPart = useCallback(async (id: string | undefined) => {
+    if (id) {
+      await api.delete(`pessoa/${id}`);
+
+      history.goBack();
+    }
+  }, [history]);
+
+
   return (
     <Container>
       <Menu />
       <Content>
-        <Form initialData={partContraria} ref={formRef} onSubmit={() => {}}>
+        <ButtonArrow />
+        <Form initialData={partContraria} ref={formRef} onSubmit={handleFormSubmit}>
           <Row>
             <InputGroup lg={4}>
               <Input name="nome" label="Nome do Cliente" placeholder="Nome do cliente" />
@@ -132,7 +232,7 @@ function CounterpartInformation() {
           <ButtonGroup>
             <Button className="first-button" type="submit">Salvar</Button>
 
-            <Button className="last-button" type="submit">Delete</Button>
+            <Button className="last-button" type="button" onClick={() => handleDeleteCounterPart(partContraria?.id)} >Delete</Button>
           </ButtonGroup>
         </Form>
       </Content>
