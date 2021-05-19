@@ -41,7 +41,7 @@ class UpdatePessoaService {
 
     const checkEmailExist = await this.pessoaRepository.findByEmail(email);
 
-    if (checkEmailExist) {
+    if (checkEmailExist && checkEmailExist.id !== id) {
       throw new AppError('Email already exist', 400);
     }
 

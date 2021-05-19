@@ -14,6 +14,9 @@ class UpdateAcaoService {
     id,
     providencias,
     data_atendimento,
+    cliente_id,
+    parte_contraria_id,
+    tipos_de_acoes,
   }: IUpdateAcaoDTO): Promise<Acao> {
     const acao = await this.acaoRepository.findById(id);
 
@@ -23,6 +26,9 @@ class UpdateAcaoService {
 
     acao.providencias = providencias;
     acao.data_atendimento = data_atendimento;
+    acao.cliente_id = cliente_id;
+    acao.parte_contraria_id = parte_contraria_id;
+    acao.tipos_de_acoes = tipos_de_acoes;
 
     await this.acaoRepository.save(acao);
 

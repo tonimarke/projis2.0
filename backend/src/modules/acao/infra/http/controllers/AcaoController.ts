@@ -79,7 +79,14 @@ class AcaoController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    const { id, providencias, data_atendimento } = req.body;
+    const {
+      id,
+      providencias,
+      data_atendimento,
+      cliente_id,
+      parte_contraria_id,
+      tipos_de_acoes,
+    } = req.body;
 
     const acaoRepository = new AcaoRepository();
 
@@ -89,6 +96,9 @@ class AcaoController {
       id,
       providencias,
       data_atendimento,
+      cliente_id,
+      parte_contraria_id,
+      tipos_de_acoes,
     });
 
     return res.json(acao);
