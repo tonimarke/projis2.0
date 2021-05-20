@@ -35,14 +35,10 @@ function ActionConsultation() {
     if (data.search) {
       const response = await api.get(`acao_search/?search=${data.search}`);
       
-      console.log(response.data);
-      
       setActions(response.data);
     } else {
       const response = await api.get(`acoes`);
-      
-      console.log(response.data);
-      
+            
       setActions(response.data);
     }
 

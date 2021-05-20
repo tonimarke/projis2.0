@@ -1,5 +1,6 @@
 import { FormHandles } from '@unform/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import * as Yup from 'yup';
 
 import api from '../../../services/api';
 
@@ -10,7 +11,8 @@ import AsyncSelect from '../../../components/AsyncSelect';
 import ButtonArrow  from '../../../components/ButtonBack';
 
 import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
-import { useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
+import getValidationErrors from '../../../utils/getValidationErrors';
 
 interface Tipo_de_Acao {
   id: string;
@@ -56,6 +58,7 @@ interface CounterPartFormData {
 
 function ActionInformation() {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
   const { params } = useRouteMatch<IdParams>();
 
   const [action, setAction] = useState<IAcao>();
@@ -112,6 +115,35 @@ function ActionInformation() {
     parte_contraria_id,
     tipos_de_acoes,
   }: CounterPartFormData) => {
+    try {
+      const shema = Yup.object().shape({
+        data_atendimento: Yup.date().required('Data de atendimento é obrigatória'),
+        cliente_id: Yup.string().required('Cliente é obrigatório'),
+        parte_contraria_id: Yup.string().required('Parte Cintrária obrigatória'),
+        tipos_de_acoes: Yup.string().required('Tipo de ação é obrigatória'),
+        providencias: Yup.string().required('Providência é obrigatória')
+      });
+
+      await shema.validate({
+        data_atendimento,
+        cliente_id,
+        parte_contraria_id,
+        tipos_de_acoes,
+        providencias,
+      }, { 
+        abortEarly: false
+      });
+
+      history.goBack();
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+
+        formRef.current?.setErrors(errors);
+
+        return
+      }
+    }
     await api.put('/acao', {
       id: action?.id,
       providencias,
@@ -120,7 +152,15 @@ function ActionInformation() {
       parte_contraria_id,
       tipos_de_acoes,
     });
-  }, [action?.id]);
+  }, [action?.id, history]);
+
+  const hanbleDeleteAction = useCallback(async (id: string | undefined) => {
+    if (id) {
+      await api.delete(`/acao/${id}`)
+      
+      history.goBack();
+    }
+  }, [history]);
 
   return (
     <Container>
@@ -148,7 +188,7 @@ function ActionInformation() {
           <ButtonGroup>
             <Button className="first-button" type="submit">Salvar</Button>
 
-            <Button className="last-button" type="submit">Delete</Button>
+            <Button className="last-button" type="button" onClick={() => hanbleDeleteAction(action?.id)}>Delete</Button>
           </ButtonGroup>
         </Form>
       </Content>
