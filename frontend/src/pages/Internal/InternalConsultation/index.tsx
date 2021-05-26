@@ -26,7 +26,7 @@ function InternalConsultation() {
   const history = useHistory();
 
   const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('pessoas_typeesa');
+    const response = await api.get('pessoas_type_esa');
 
     setUsers(response.data);
   }, []);

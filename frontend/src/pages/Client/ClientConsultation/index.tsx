@@ -54,7 +54,7 @@ function ClientConsultation() {
     <Container>
       <Menu />
       <Content>
-        <h1>Consultar dos clientes </h1>
+        <h1>Consulta dos clientes </h1>
 
         <Form ref={formRef} onSubmit={hanbleSubmitForm}>
           <Input name="search" placeholder="Buscar...." />

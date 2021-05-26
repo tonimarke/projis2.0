@@ -138,9 +138,9 @@ function ActionRegistration() {
           <InputStyle>
             <Input name="data_atendimento" label="Data de Atendimento" placeholder="Insira a data de atendimento...." />
             <AsyncSelect name="cliente_id" options={cliente} label="Nome do cliente" />
-            <AsyncSelect name="parte_contraria_id" options={contraria} label="Nome da parte contraria" />
+            <AsyncSelect name="parte_contraria_id" options={contraria} label="Nome da parte contrária" />
             <AsyncSelect name="tipos_de_acoes" options={acoes} label="Ações" />
-            <Input className="input-providencia" name="providencias" label="Providências" placeholder="Insira a providência...." />
+            <Input name="providencias" label="Providências" placeholder="Insira a providência...." />
           </InputStyle>
           <Button type="submit">Cadastro</Button>
         </Form>

@@ -64,7 +64,7 @@ function ActionConsultation() {
           <thead>
             <tr>
               <th>Cliente</th>
-              <th>Parte Contraria</th>
+              <th>Parte Contrária</th>
               <th>Providências</th>
               <th>Data do Atendimento</th>
             </tr>

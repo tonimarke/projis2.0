@@ -1,10 +1,10 @@
+import { Link } from 'react-router-dom';
 import { IconBaseProps } from 'react-icons/lib';
 import { FaUserTie, FaUser, FaUserTimes, FaGavel, FaFile } from 'react-icons/fa';
 
 import { Container, NavIcons } from './styles';
 
 import logoImg from '../../assets/logo.svg';
-import { Link } from 'react-router-dom';
 
 interface MenuProps {
   icon?: React.ComponentType<IconBaseProps>
@@ -19,11 +19,21 @@ function Menu({ icon }: MenuProps) {
       <h1>Projis</h1>
 
       <NavIcons>
-        <FaUserTie size={40} color="#000" />
-        <FaUser size={40} color="#000" />
-        <FaUserTimes size={40} color="#000" />
-        <FaGavel size={40} color="#000" />
-        <FaFile size={40} color="#000" />
+        <Link to="/internal_registration">
+          <FaUserTie size={50} color="#000" />
+        </Link>
+        <Link to="/client_registration">
+          <FaUser size={50} color="#000" />
+        </Link>
+        <Link to="/counterpart_registration">
+        <FaUserTimes size={50} color="#000" />
+        </Link>
+        <Link to="/action_registration">
+          <FaGavel size={50} color="#000" />
+        </Link>
+        <Link to="/record_registration">
+          <FaFile size={50} color="#000" />
+        </Link>
       </NavIcons>
     </Container>
   );

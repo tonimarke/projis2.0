@@ -8,9 +8,9 @@ import AsyncSelect from '../../../components/AsyncSelect';
 import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
-import ButtonArrow  from '../../../components/ButtonBack';
+import ButtonBack  from '../../../components/ButtonBack';
 
-import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
+import { Container, Content, Header, InputGroup, Form, ButtonGroup, Row } from './styles';
 
 interface IdParams {
   id: string;
@@ -93,14 +93,9 @@ function CounterpartInformation() {
   const [tipoDePessoa, setTipoDePessoa] = useState<Options[]>([]);
 
   useEffect(() => {
-    async function loadParteContraria() {
-      const response = await api.get(`/pessoa/${params.id}`)
-      
-      setPartContraria(response.data);
-    }
-
     async function loadData() {
-      const [civilRes, tipoDePessoaRes] = await Promise.all([
+      const [parteContrariaRes, civilRes, tipoDePessoaRes] = await Promise.all([
+        api.get(`/pessoa/${params.id}`),
         api.get<EstadoCivil[]>('/estados_civis'),
         api.get<TipoDePessoa[]>('/tipos_de_pessoas')
       ]);
@@ -119,13 +114,22 @@ function CounterpartInformation() {
         }
       });
 
+      const defaultValueCivil = civilOptions.find((dataCivil) => dataCivil.value === partContraria?.estado_civil_id);
+      
+      const defaultValueTipo = tipoDePessoaOptions.find((dataTipo) => dataTipo.value === partContraria?.tipo_de_pessoa_id);
+
+      if (formRef.current) {
+        formRef.current.setData({ estado_civil_id: defaultValueCivil, tipo_de_pessoa_id: defaultValueTipo});
+      }
+
+      setPartContraria(parteContrariaRes.data);
       setCivil(civilOptions);
       setTipoDePessoa(tipoDePessoaOptions);
     }
 
-    loadParteContraria();
     loadData();
-  }, [params.id]);
+
+  }, [params.id, partContraria?.estado_civil_id, partContraria?.tipo_de_pessoa_id]);
 
   const handleFormSubmit = useCallback(async ({
     nome,
@@ -157,6 +161,8 @@ function CounterpartInformation() {
       estado
     });
 
+    console.log(estado_civil_id);
+
     await api.put('/pessoa', {
       id: partContraria?.id,
       nome,
@@ -182,7 +188,10 @@ function CounterpartInformation() {
     <Container>
       <Menu />
       <Content>
-        <ButtonArrow />
+        <Header>
+          <ButtonBack />
+          <h1>Atualizar parte contrária</h1>
+        </Header>
         <Form initialData={partContraria} ref={formRef} onSubmit={handleFormSubmit}>
           <Row>
             <InputGroup lg={4}>

@@ -205,7 +205,7 @@ function RecordRegistration() {
             <AsyncSelect name="encaminhado_por_id" options={encaminhados} label="Encaminhado" />
             <AsyncSelect name="entrevistado_por_id" options={entrevistados} label="Entrevistado" />
 
-            <Input className="input-sinotico" name="sinotico" label="Sinótico" placeholder="Insira o sinótico...." />
+            <Input name="sinotico" label="Sinótico" placeholder="Insira o sinótico...." />
           </InputStyle>
           <Button type="submit">Cadastro</Button>
         </Form>

@@ -13,7 +13,9 @@ export default function AsyncSelect({ name, label, ...rest }: AsyncSelectProps) 
   const selectRef = useRef(null);
   
   const { fieldName, defaultValue, registerField, error } = useField(name);
-  
+
+  // console.log(defaultValue);
+
   useEffect(() => {
     registerField({
       name: fieldName,
@@ -31,6 +33,9 @@ export default function AsyncSelect({ name, label, ...rest }: AsyncSelectProps) 
           return '';
         }
         return ref.state.value.value;
+      },
+      setValue: (ref, value) => {
+        ref.state.value = value
       },
     });
   }, [fieldName, registerField, rest.isMulti]);

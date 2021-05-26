@@ -9,9 +9,9 @@ import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import AsyncSelect from '../../../components/AsyncSelect';
-import ButtonArrow  from '../../../components/ButtonBack';
+import ButtonBack from '../../../components/ButtonBack';
 
-import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
+import { Container, Content, InputGroup, Form, ButtonGroup, Row, Header } from './styles';
 import getValidationErrors from '../../../utils/getValidationErrors';
 
 interface IdParams {
@@ -108,6 +108,7 @@ interface ClientInformationFormData {
     estado: string;
   }
 }
+
 function ClientInformation() {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
@@ -118,14 +119,9 @@ function ClientInformation() {
   const [tipoDePessoa, setTipoDePessoa] = useState<Options[]>([]);
 
   useEffect(() => {
-    async function loadCliente() {
-      const response = await api.get<ICliente>(`/pessoa/${params.id}`);
-      
-      setCliente(response.data)
-    }
-
     async function loadData() {
-      const [civilRes, tipoDePessoaRes] = await Promise.all([
+      const [clienteRes, civilRes, tipoDePessoaRes] = await Promise.all([
+        api.get<ICliente>(`/pessoa/${params.id}`),
         api.get<EstadoCivil[]>('/estados_civis'),
         api.get<TipoDePessoa[]>('/tipos_de_pessoas')
       ]);
@@ -144,14 +140,22 @@ function ClientInformation() {
         }
       });
 
+      const defaultValueCivil = civilOptions.find((dataCivi) => dataCivi.value === cliente?.estado_civil_id);
+
+      const defaultValueTipo = tipoDePessoaOptions.find((dataTipo) => dataTipo.value === cliente?.tipo_de_pessoa_id);
+
+
+      if (formRef.current) {
+        formRef.current.setData({ estado_civil_id: defaultValueCivil, tipo_de_pessoa_id: defaultValueTipo});
+      }
+
+      setCliente(clienteRes.data);
       setCivil(civilOptions);
       setTipoDePessoa(tipoDePessoaOptions);
     }
   
-    loadCliente();
     loadData();
-  }, [params.id]);
-
+  }, [cliente?.estado_civil_id, cliente?.tipo_de_pessoa_id, params.id]);
 
   const handleFormSubmit = useCallback(async ({
     nome,
@@ -290,7 +294,10 @@ function ClientInformation() {
     <Container>
       <Menu />
       <Content>
-        <ButtonArrow />
+        <Header>
+          <ButtonBack />
+          <h1>Atualizar cliente</h1>
+        </Header>
         <Form initialData={cliente} ref={formRef} onSubmit={handleFormSubmit}>
           <Row>
             <InputGroup lg={6}>

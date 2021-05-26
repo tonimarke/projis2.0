@@ -16,6 +16,16 @@ export const Content = styled.div`
   background: #E5E5E5;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
+`;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin-left: 30px;
+  }
 `;
 
 export const Form = styled(FormBase)`

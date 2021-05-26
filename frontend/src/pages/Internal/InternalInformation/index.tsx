@@ -11,7 +11,7 @@ import Button from '../../../components/Button';
 import ButtonBack from '../../../components/ButtonBack';
 import AsyncSelect from '../../../components/AsyncSelect';
 
-import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
+import { Container, Content, Header, InputGroup, Form, ButtonGroup, Row } from './styles';
 import getValidationErrors from '../../../utils/getValidationErrors';
 
 interface Tipo_de_Pessoa {
@@ -33,6 +33,7 @@ interface IPessoa {
   nome: string;
   rg: string;
   cpf: string;
+  tipo_de_pessoa_id: string;
 }
 
 interface InternalInformationFormData {
@@ -52,27 +53,32 @@ function InternalInformation() {
 
   useEffect(() => {
     async function loadTipoDePessoa () {
-      const response = await api.get<Tipo_de_Pessoa[]>('tipos_de_pessoas');
 
-      const options = response.data.map(option => {
+      const [pessoaRes, tipoRes] = await Promise.all([
+        api.get<IPessoa>(`/pessoa/${params.id}`),
+        api.get<Tipo_de_Pessoa[]>('tipos_de_pessoas')
+      ])
+
+      const cargosOptions = tipoRes.data.map(option => {
         return {
           label: option.tipo_de_pessoa,
           value: option.id,
         };
       });
 
-      setCargos(options);
-    }
-    
-    async function loadPessoa() {
-      const response = await api.get<IPessoa>(`/pessoa/${params.id}`);
+      const defaultValueCargo = cargosOptions.find((dataCargo) => dataCargo.value === pessoa?.tipo_de_pessoa_id);
 
-      setPessoa(response.data);
+      if (formRef.current) {
+        formRef.current.setData({ tipo_de_pessoa_id: defaultValueCargo });
+      }
+
+      setPessoa(pessoaRes.data);
+      setCargos(cargosOptions);
     }
 
     loadTipoDePessoa();
-    loadPessoa();
-  }, [params.id]);
+ 
+  }, [params.id, pessoa?.tipo_de_pessoa_id]);
 
   const handleFormSubmit = useCallback(async ({ nome, rg, cpf, tipo_de_pessoa_id }: InternalInformationFormData, { reset }) => {
     try {
@@ -125,7 +131,10 @@ function InternalInformation() {
     <Container>
       <Menu />
       <Content>
-      <ButtonBack />
+        <Header>
+          <ButtonBack />
+          <h1>Atualizar o interno</h1>
+        </Header>
         <Form initialData={pessoa} ref={formRef} onSubmit={handleFormSubmit}>
         <Row>
           <InputGroup lg={4}>

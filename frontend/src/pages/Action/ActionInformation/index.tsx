@@ -8,9 +8,9 @@ import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import AsyncSelect from '../../../components/AsyncSelect';
-import ButtonArrow  from '../../../components/ButtonBack';
+import ButtonBack  from '../../../components/ButtonBack';
 
-import { Container, Content, InputGroup, Form, ButtonGroup, Row } from './styles';
+import { Container, Content, Header, InputGroup, Form, ButtonGroup, Row } from './styles';
 import { useHistory, useRouteMatch } from 'react-router';
 import getValidationErrors from '../../../utils/getValidationErrors';
 
@@ -40,7 +40,13 @@ interface IAcao {
   cliente_id: string;
   data_atendimento: string,
   parte_contraria_id: string;
-  tipos_de_acoes: string;
+  tipos_de_acoes: [
+    {
+      id: string;
+      nome: string;
+      descricao: string;
+    }
+  ];
 }
 
 interface IdParams {
@@ -67,7 +73,6 @@ function ActionInformation() {
   const [contraria, setContraria] = useState<Options[]>([]);
 
   useEffect(() => {
-
     async function loadData () {
       const [ acaoRes, tipoAcaoRes, clienteRes, contrariaRes ] = await Promise.all([
         api.get<IAcao>(`/acao/${params.id}`),
@@ -75,7 +80,6 @@ function ActionInformation() {
         api.get<Cliente[]>('/pessoas_type/Cliente'),
         api.get<ParteContraria[]>('pessoas_type/Parte Contraria')
       ]);
-      
     
       const tipoAcaoOptions = tipoAcaoRes.data.map(option => {
         return {
@@ -94,9 +98,19 @@ function ActionInformation() {
       const contrariaOptions = contrariaRes.data.map(option => {
         return {
           label: option.nome,
-           value: option.id,
+          value: option.id,
         }
       });
+
+      const defaultValueTiposAcao = tipoAcaoOptions.find((dataTiposAcao) => dataTiposAcao.value === action?.tipos_de_acoes[0].id);
+
+      const defaultValueCliente = clienteOptions.find((dataCliente) => dataCliente.value === action?.cliente_id)
+
+      const defaultValueContraria = contrariaOptions.find((dataContraria) => dataContraria.value === action?.parte_contraria_id)
+
+      if (formRef.current) {
+        formRef.current.setData({ tipos_de_acoes: defaultValueTiposAcao, cliente_id: defaultValueCliente, parte_contraria_id: defaultValueContraria})  
+      }
 
       setAction(acaoRes.data);
       setTipoDeAcoes(tipoAcaoOptions);
@@ -105,7 +119,7 @@ function ActionInformation() {
     }
     
     loadData();
-  }, [params.id]);
+  }, [action?.cliente_id, action?.parte_contraria_id, action?.tipos_de_acoes, params.id]);
   
   const handleFormSubmit = useCallback(async ({
     id,
@@ -166,7 +180,10 @@ function ActionInformation() {
     <Container>
       <Menu />
       <Content>
-        <ButtonArrow />
+        <Header>
+          <ButtonBack />
+          <h1>Atualizar ação</h1>
+        </Header>
         <Form initialData={action} ref={formRef} onSubmit={handleFormSubmit}>
           <Row>
             <InputGroup lg={4}>
@@ -176,13 +193,13 @@ function ActionInformation() {
               <AsyncSelect name="cliente_id" options={clientes} label="Nome do cliente" />
             </InputGroup>
             <InputGroup lg={4}>
-              <AsyncSelect name="parte_contraria_id" options={contraria} label="Nome da parte contraria" />
+              <AsyncSelect name="parte_contraria_id" options={contraria} label="Nome da parte contrária" />
             </InputGroup>
             <InputGroup>
               <AsyncSelect name="tipos_de_acoes" options={tipoDeAcoes} label="Ações" />
             </InputGroup>
             <InputGroup>
-              <Input className="input-providencia" name="providencias" label="Providências" placeholder="Providência...." />
+              <Input name="providencias" label="Providências" placeholder="Providência...." />
             </InputGroup>
           </Row>
           <ButtonGroup>

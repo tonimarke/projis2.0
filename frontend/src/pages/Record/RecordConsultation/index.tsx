@@ -102,7 +102,7 @@ function RecordConsultation() {
               <th>Nome do estagiario</th>
               <th>Nome do encaminhado</th>
               <th>Nome do entrevistado</th>
-              <th>Providencia</th>
+              <th>Providência</th>
               <th>Data da abertura</th>
               <th>Data do encerramento</th>
             </tr>

@@ -9,9 +9,9 @@ import Menu from '../../../components/Menu';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import AsyncSelect from '../../../components/AsyncSelect';
-import ButtonArrow from '../../../components/ButtonBack';
+import ButtonBack from '../../../components/ButtonBack';
 
-import { Container, Content, InputGroup, Form, ButtonGroup } from './styles';
+import { Container, Content, Header, InputGroup, Form, ButtonGroup } from './styles';
 import getValidationErrors from '../../../utils/getValidationErrors';
 
 interface IdParams {
@@ -35,7 +35,11 @@ interface Person {
 
 interface Prontuario {
   id: string;
-  motivo_procura: string
+  motivo_procura: string;
+  acao_id: string;
+  estagiario_id: string;
+  encaminhado_por_id: string;
+  entrevistado_por_id: string;
 }
 
 interface RecordRegistrationFormData {
@@ -70,7 +74,7 @@ function RecordInformation() {
   useEffect(() => {
     async function loadData () {
 
-      const [prontuarioRes, actionRes, estagiarioRes, encaminhadoRes, EntrevistadoRes ] = await Promise.all([
+      const [prontuarioRes, actionRes, estagiarioRes, encaminhadoRes, entrevistadoRes ] = await Promise.all([
         api.get<Prontuario>(`prontuario/${params.id}`),
         api.get<Actions[]>('/acoes'),
         api.get<Person[]>('/pessoas_type/Estagiário'),
@@ -99,12 +103,29 @@ function RecordInformation() {
         };
       });
 
-      const entrevistadoOptions = EntrevistadoRes.data.map(option => {
+      const entrevistadoOptions = entrevistadoRes.data.map(option => {
         return {
           label: option.nome,
           value: option.id,
         };
       });
+
+      const defaultValueAcao = actionOptions.find((dataAcao) => dataAcao.value === prontuario?.acao_id);
+
+      const defaultValueEstagiario = estagiariOptions.find((dataEstagiario) => dataEstagiario.value === prontuario?.estagiario_id);
+
+      const defaultValueEncaminhado = encaminhadOptions.find((dataEncaminhado) => dataEncaminhado.value === prontuario?.encaminhado_por_id);
+
+      const defaultValueEntrevistado = entrevistadoOptions.find((dataEntrevistado) => dataEntrevistado.value === prontuario?.entrevistado_por_id);
+
+      if (formRef.current) {
+        formRef.current.setData({
+          acao_id: defaultValueAcao,
+          estagiario_id: defaultValueEstagiario,
+          encaminhado_por_id: defaultValueEncaminhado,
+          entrevistado_por_id: defaultValueEntrevistado
+        });
+      }
 
       setProntuario(prontuarioRes.data);
       setActions(actionOptions);
@@ -114,7 +135,7 @@ function RecordInformation() {
     }
     
     loadData();
-  }, [params.id]);
+  }, [params.id, prontuario?.acao_id, prontuario?.encaminhado_por_id, prontuario?.entrevistado_por_id, prontuario?.estagiario_id]);
 
   const handleFormSubmit = useCallback(async ({
     motivo_procura,
@@ -203,13 +224,16 @@ function RecordInformation() {
 
       history.goBack();
     }
-  }, []);
+  }, [history]);
 
   return (
     <Container>
       <Menu />
       <Content>
-        <ButtonArrow />
+        <Header>
+          <ButtonBack />
+          <h1>Atualizar formulário</h1>
+        </Header>
         <Form initialData={prontuario} ref={formRef} onSubmit={handleFormSubmit}>
           <InputGroup lg={4}>
             <Input name="motivo_procura" label="Motivo da Procura" placeholder="Motivo da Procura" />
