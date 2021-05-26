@@ -20,14 +20,16 @@ class AcaoRepository implements IAcaoRepository {
 
   public async findAll(): Promise<Acao[] | undefined> {
     const acoes = await this.ormRepository.find({
-      relations: ['cliente', 'parte_contraria'],
+      relations: ['cliente', 'parte_contraria', 'tipos_de_acoes'],
     });
 
     return acoes;
   }
 
   public async findById(id: string): Promise<Acao | undefined> {
-    const acao = await this.ormRepository.findOne(id);
+    const acao = await this.ormRepository.findOne(id, {
+      relations: ['tipos_de_acoes'],
+    });
 
     return acao;
   }

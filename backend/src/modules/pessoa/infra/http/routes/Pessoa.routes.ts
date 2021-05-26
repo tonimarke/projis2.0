@@ -19,7 +19,7 @@ pessoaRouter.get(
   pessoaController.findByTypePersonSearch,
 );
 
-pessoaRouter.get('/pessoas_typeesa', pessoaController.findByTypeESA);
+pessoaRouter.get('/pessoas_type_esa', pessoaController.findByTypeESA);
 
 pessoaRouter.put('/pessoa', pessoaController.update);
 

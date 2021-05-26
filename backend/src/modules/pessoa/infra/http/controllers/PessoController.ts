@@ -158,6 +158,8 @@ class PessoaController {
       profissao,
       oab,
       ocupacao,
+      estado_civil_id,
+      tipo_de_pessoa_id,
     } = req.body;
 
     const pessoaRepository = new PessoaRepository();
@@ -186,6 +188,8 @@ class PessoaController {
       profissao,
       oab,
       ocupacao,
+      estado_civil_id,
+      tipo_de_pessoa_id,
     });
 
     return res.json(pessoa);

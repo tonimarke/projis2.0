@@ -20,4 +20,6 @@ export default interface IUpdatePessoaDTO {
   profissao: string;
   oab: string;
   ocupacao: string;
+  estado_civil_id: string;
+  tipo_de_pessoa_id: string;
 }

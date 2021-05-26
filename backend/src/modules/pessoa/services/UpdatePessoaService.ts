@@ -32,6 +32,8 @@ class UpdatePessoaService {
     profissao,
     oab,
     ocupacao,
+    estado_civil_id,
+    tipo_de_pessoa_id,
   }: IUpdatePessoaDTO): Promise<Pessoa> {
     const pessoa = await this.pessoaRepository.findById(id);
 
@@ -65,6 +67,8 @@ class UpdatePessoaService {
     pessoa.profissao = profissao;
     pessoa.oab = oab;
     pessoa.ocupacao = ocupacao;
+    pessoa.estado_civil_id = estado_civil_id;
+    pessoa.tipo_de_pessoa_id = tipo_de_pessoa_id;
 
     await this.pessoaRepository.save(pessoa);
 
