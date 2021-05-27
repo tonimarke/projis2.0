@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { Brackets, getRepository, Repository } from 'typeorm';
 import ICreateProntuarioDTO from '../../../dtos/ICreateProntuarioDTO';
 import IProntuarioRepository from '../../../repositories/IProntuarioRepository';
 import Prontuario from '../entities/Prontuario';
@@ -32,6 +32,44 @@ class ProntuarioRepository implements IProntuarioRepository {
     const prontuario = await this.ormRepository.findOne(id);
 
     return prontuario;
+  }
+
+  public async findByRecordSearch(
+    search: string,
+  ): Promise<Prontuario[] | undefined> {
+    const formattedQuery = search.trim().replace(/ /g, ' & ');
+
+    console.log(formattedQuery);
+
+    const prontuarios = await this.ormRepository
+      .createQueryBuilder('prontuarios')
+      .innerJoinAndSelect('prontuarios.acao', 'acao')
+      .innerJoinAndSelect('prontuarios.estagiarios', 'estagiario')
+      .innerJoinAndSelect('prontuarios.encaminhados', 'encaminhado')
+      .innerJoinAndSelect('prontuarios.entrevistados', 'entrevistado')
+      .where(
+        new Brackets(qb => {
+          qb.where(
+            `to_tsvector('simple', prontuarios.motivo_procura) @@ to_tsquery('simple', :query)`,
+            { query: `${formattedQuery}:*` },
+          )
+            .orWhere(
+              `to_tsvector('simple', estagiario.nome) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            )
+            .orWhere(
+              `to_tsvector('simple', encaminhado.nome) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            )
+            .orWhere(
+              `to_tsvector('simple', entrevistado.nome) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            );
+        }),
+      )
+      .getMany();
+
+    return prontuarios;
   }
 
   public async save(dataProntuario: ICreateProntuarioDTO): Promise<void> {

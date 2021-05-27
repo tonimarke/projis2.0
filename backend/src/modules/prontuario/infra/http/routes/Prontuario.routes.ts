@@ -11,6 +11,11 @@ prontuarioRouter.get('/prontuarios', prontuarioController.findAll);
 
 prontuarioRouter.get('/prontuario/:id', prontuarioController.findOne);
 
+prontuarioRouter.get(
+  '/prontuario_search',
+  prontuarioController.findByRecordSearch,
+);
+
 prontuarioRouter.put('/prontuario', prontuarioController.update);
 
 prontuarioRouter.delete('/prontuario/:id', prontuarioController.delete);

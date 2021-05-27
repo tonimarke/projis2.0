@@ -21,6 +21,11 @@ pessoaRouter.get(
 
 pessoaRouter.get('/pessoas_type_esa', pessoaController.findByTypeESA);
 
+pessoaRouter.get(
+  '/pessoas_type_esa_search',
+  pessoaController.findByTypeESASearch,
+);
+
 pessoaRouter.put('/pessoa', pessoaController.update);
 
 pessoaRouter.delete('/pessoa/:id', pessoaController.delete);

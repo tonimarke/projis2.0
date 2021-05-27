@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import CreateProntuarioService from '../../../services/CreateProntuarioService';
 import FindAllProntuarioService from '../../../services/FindAllProntuarioService';
 import FindOneProntuarioService from '../../../services/FindOneProntuarioService';
+import FindByProntuarioSearchService from '../../../services/FindByProntuarioSearchService';
 import UpdateProntuarioService from '../../../services/UpdateProntuarioService';
 import DeleteProntuarioService from '../../../services/DeleteProntuarioService';
 
@@ -77,6 +78,23 @@ class ProntuarioController {
     const prontuario = await findOneProntuario.execute(id);
 
     return res.json(prontuario);
+  }
+
+  public async findByRecordSearch(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const search = String(req.query.search);
+
+    const prontuarioRepository = new ProntuarioRepository();
+
+    const findAllProntuario = new FindByProntuarioSearchService(
+      prontuarioRepository,
+    );
+
+    const prontuarios = await findAllProntuario.execute(search);
+
+    return res.json(prontuarios);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {

@@ -5,6 +5,7 @@ export default interface IProntuarioRepository {
   create(dataProntuario: ICreateProntuarioDTO): Promise<Prontuario>;
   findAll(): Promise<Prontuario[] | undefined>;
   findById(id: string): Promise<Prontuario | undefined>;
+  findByRecordSearch(search: string): Promise<Prontuario[] | undefined>;
   save(dataProntuario: ICreateProntuarioDTO): Promise<void>;
   delete(id: string): Promise<string>;
 }
