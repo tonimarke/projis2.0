@@ -30,7 +30,6 @@ function CounterpartConsultation() {
   const history = useHistory();
 
   const hanbleSubmitForm = useCallback(async (data: CounterpartConsultationForm) => {
-    console.log(data.search);
     try {
       if (data.search) {
         const response = await api.get(`pessoas_search/Parte Contraria/?search=${data.search}`);

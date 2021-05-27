@@ -61,23 +61,43 @@ interface IProntuarios {
   }
 }
 
+interface RecordConsultationForm {
+  search: string;
+}
+
 function RecordConsultation() {
   const [records, setRecords] = useState<IProntuarios[]>([]);
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get<IProntuarios[]>('prontuarios');
-
-    const prontuarios = response.data.map(pront => {
-      return {
-        ...pront,
-        dateFormatOpen: formatDate(pront.data_abertura),
-        dateFormatClose: formatDate(pront.data_encerramento),
+  const hanbleSubmitForm = useCallback(async (data: RecordConsultationForm) => {
+    try {
+      if (data.search) {
+        const response = await api.get<IProntuarios[]>(`prontuario_search/?search=${data.search}`);
+        
+        const prontuarios = response.data.map(pront => {
+          return {
+            ...pront,
+            dateFormatOpen: formatDate(pront.data_abertura),
+            dateFormatClose: formatDate(pront.data_encerramento),
+          }
+        });
+        setRecords(prontuarios);
+      } else {
+        const response = await api.get<IProntuarios[]>(`prontuarios`);
+        
+        const prontuarios = response.data.map(pront => {
+          return {
+            ...pront,
+            dateFormatOpen: formatDate(pront.data_abertura),
+            dateFormatClose: formatDate(pront.data_encerramento),
+          }
+        });
+        setRecords(prontuarios);
       }
-    });
-
-    setRecords(prontuarios);
+    } catch (err) {
+      setRecords([])
+    }
   }, []);
 
   const handleTableInformation = useCallback((id: string) => {

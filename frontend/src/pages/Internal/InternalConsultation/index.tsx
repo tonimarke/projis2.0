@@ -20,15 +20,30 @@ interface Person {
   }
 }
 
+interface InternalConsultationForm {
+  search: string;
+}
+
 function InternalConsultation() {
   const [users, setUsers] = useState<Person[]>([]);
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const hanbleSubmitForm = useCallback(async () => {
-    const response = await api.get('pessoas_type_esa');
+  const hanbleSubmitForm = useCallback(async (data: InternalConsultationForm) => {
+    try {
+      if (data.search) {
+        const response = await api.get(`pessoas_type_esa_search?search=${data.search}`);
+        setUsers(response.data);
+      } else {
+        const response = await api.get('pessoas_type_esa');
+      
+        setUsers(response.data);
+      }
+    } catch (err) {
+      setUsers([]);
+    }
 
-    setUsers(response.data);
+    
   }, []);
 
   const handleTableInformation = useCallback((id: string) => {

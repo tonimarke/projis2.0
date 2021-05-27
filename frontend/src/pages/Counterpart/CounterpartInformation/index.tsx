@@ -161,7 +161,7 @@ function CounterpartInformation() {
       estado
     });
 
-    console.log(estado_civil_id);
+    // console.log(estado_civil_id);
 
     await api.put('/pessoa', {
       id: partContraria?.id,

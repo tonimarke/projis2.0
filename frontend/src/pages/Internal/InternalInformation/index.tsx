@@ -80,7 +80,7 @@ function InternalInformation() {
  
   }, [params.id, pessoa?.tipo_de_pessoa_id]);
 
-  const handleFormSubmit = useCallback(async ({ nome, rg, cpf, tipo_de_pessoa_id }: InternalInformationFormData, { reset }) => {
+  const handleFormSubmit = useCallback(async ({ nome, rg, cpf, tipo_de_pessoa_id }: InternalInformationFormData) => {
     try {
       formRef.current?.setErrors({});
 
@@ -106,7 +106,6 @@ function InternalInformation() {
         tipo_de_pessoa_id
       });
 
-      reset();
       history.goBack();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
