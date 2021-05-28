@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { OptionTypeBase } from 'react-select';
-import Select, { Props as AsyncProps } from 'react-select';
+import { Props as AsyncProps } from 'react-select';
 import { useField } from '@unform/core';
-import { Container, Label } from './styles';
+import { Container, Label, Select } from './styles';
 
 interface AsyncSelectProps extends AsyncProps<OptionTypeBase> {
   name: string;
@@ -22,6 +22,18 @@ export default function AsyncSelect({ name, label, ...rest }: AsyncSelectProps) 
       ref: selectRef.current,
       getValue: (ref: any) => {
         if (rest.isMulti) {
+          if (!ref.state.value) {
+            return [];
+          }
+          return ref.state.value.map((option: OptionTypeBase) => option.value);
+        }
+        if (!ref.state.value) {
+          return '';
+        }
+        return ref.state.value.value;
+      
+        /*
+        if (rest.isMulti) {
           if (!ref.state.value.value) {
             return [];
           }
@@ -33,6 +45,7 @@ export default function AsyncSelect({ name, label, ...rest }: AsyncSelectProps) 
           return '';
         }
         return ref.state.value.value;
+        */
       },
       setValue: (ref, value) => {
         ref.state.value = value
@@ -47,7 +60,7 @@ export default function AsyncSelect({ name, label, ...rest }: AsyncSelectProps) 
       </Label>
       <Container>
         <Select
-          className="select"
+          className={`select ${error ? 'error' : ''}`}
           cacheOptions
           defaultValue={defaultValue}
           ref={selectRef}

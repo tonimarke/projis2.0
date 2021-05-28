@@ -57,7 +57,7 @@ function RecordRegistration() {
 
       const [actionRes, estagiarioRes, encaminhadoRes, EntrevistadoRes ] = await Promise.all([
         api.get<Actions[]>('acoes'),
-        api.get<Person[]>('pessoas'),
+        api.get<Person[]>('pessoas_type/Estagiário'),
         api.get<Person[]>('pessoas'),
         api.get<Person[]>('pessoas'),
       ]);

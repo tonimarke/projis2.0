@@ -97,6 +97,8 @@ function CounterpartRegistration() {
         cpf: Yup.string().required('CPF é obrigatório'),
         ocupacao: Yup.string().required('Ocupação é obrigatório'),
 
+        estado_civil_id:  Yup.string().required('Estado Civil é obrigatório'),
+
         logradouro: Yup.string().required('Logradouro obrigatório'),
         numero: Yup.string().required('Numero obrigatório'),
         bairro: Yup.string().required('Bairro obrigatório'),

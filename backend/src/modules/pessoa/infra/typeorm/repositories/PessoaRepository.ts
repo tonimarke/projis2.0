@@ -66,6 +66,10 @@ class PessoaRepository implements IPessoaRepository {
             { query: `${formattedQuery}:*` },
           )
             .orWhere(
+              `to_tsvector('simple', pessoas.ocupacao) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            )
+            .orWhere(
               `to_tsvector('simple', pessoas.rg) @@ to_tsquery('simple', :query)`,
               { query: `${formattedQuery}:*` },
             )
