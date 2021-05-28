@@ -90,8 +90,9 @@ function ActionRegistration() {
     providencias,
   }: ActionRegistrationFormData, { reset }) => {
     try {
+      formRef.current?.setErrors({});
       const shema = Yup.object().shape({
-        data_atendimento: Yup.date().required('Data de atendimento é obrigatória'),
+        data_atendimento: Yup.string().required('Data de atendimento é obrigatória'),
         cliente_id: Yup.string().required('Cliente é obrigatório'),
         parte_contraria_id: Yup.string().required('Parte Cintrária obrigatória'),
         tipos_de_acoes: Yup.string().required('Tipo de ação é obrigatória'),

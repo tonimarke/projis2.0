@@ -69,6 +69,8 @@ function InternalRegistration() {
         rg,
         cpf,
         tipo_de_pessoa_id
+      }, {
+        abortEarly: false
       });
 
       await api.post('/pessoa', {
@@ -88,8 +90,7 @@ function InternalRegistration() {
         return
       }
     }
-  
-    
+
   }, []);
 
   return (

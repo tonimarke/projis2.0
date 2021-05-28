@@ -13,7 +13,7 @@ import { Container, Content, TablePerson } from './styles';
 interface Counterpert {
   id: string;
   nome: string;
-  email: string;
+  ocupacao: string;
   tipo_de_pessoa: {
     id: string;
     tipo_de_pessoa: string;
@@ -65,7 +65,7 @@ function CounterpartConsultation() {
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Email</th>
+              <th>Ocupação</th>
               <th>Cargo</th>
             </tr>
           </thead>
@@ -74,7 +74,7 @@ function CounterpartConsultation() {
             {users.map(user => (
               <tr key={user.id} onClick={()=> handleTableInformation(user.id)}>
                 <td>{user.nome}</td>
-                <td>{user.email}</td>
+                <td>{user.ocupacao}</td>
                 <td>{user.tipo_de_pessoa.tipo_de_pessoa}</td>
               </tr>
             ))}

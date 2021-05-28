@@ -173,7 +173,8 @@ function CounterpartInformation() {
       tipo_de_pessoa_id,
     });
 
-  }, [partContraria?.endereco_id, partContraria?.id]);
+    history.goBack()
+  }, [history, partContraria?.endereco_id, partContraria?.id]);
 
   const handleDeleteCounterPart = useCallback(async (id: string | undefined) => {
     if (id) {

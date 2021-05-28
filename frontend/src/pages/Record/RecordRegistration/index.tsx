@@ -119,8 +119,8 @@ function RecordRegistration() {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         motivo_procura: Yup.string().required('Motivo da procura é obrigatório'),
-        data_abertura: Yup.date().required('Data de abertura é obrigatório'),
-        data_encerramento: Yup.date().required('Data de encerramento é obrigatório'),
+        data_abertura: Yup.string().required('Data de abertura é obrigatório'),
+        data_encerramento: Yup.string().required('Data de encerramento é obrigatório'),
         gasto_familiar: Yup.string().required('Gasto familiar é obrigatório'),
         status_habitacao: Yup.string().required('Status da habitação é obrigatório'),
         status_familia: Yup.string().required('Status da familia é obrigatório'),

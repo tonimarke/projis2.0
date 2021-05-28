@@ -98,6 +98,8 @@ function InternalInformation() {
         tipo_de_pessoa_id
       });
 
+      console.log(tipo_de_pessoa_id);
+
       await api.put('/pessoa', {
         id: pessoa?.id,
         nome,

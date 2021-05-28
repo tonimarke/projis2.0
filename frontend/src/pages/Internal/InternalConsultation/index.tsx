@@ -13,7 +13,7 @@ import { Container, Content, TablePerson } from './styles';
 interface Person {
   id: string;
   nome: string;
-  email: string;
+  cpf: string;
   tipo_de_pessoa: {
     id: string;
     tipo_de_pessoa: string;
@@ -32,7 +32,8 @@ function InternalConsultation() {
   const hanbleSubmitForm = useCallback(async (data: InternalConsultationForm) => {
     try {
       if (data.search) {
-        const response = await api.get(`pessoas_type_esa_search?search=${data.search}`);
+        const response = await api.get(`/pessoas_type_esa_search?search=${data.search}`);
+        
         setUsers(response.data);
       } else {
         const response = await api.get('pessoas_type_esa');
@@ -65,7 +66,7 @@ function InternalConsultation() {
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Email</th>
+              <th>CPF</th>
               <th>Cargo</th>
             </tr>
           </thead>
@@ -74,7 +75,7 @@ function InternalConsultation() {
             {users.map(user => (
               <tr key={user.id} onClick={() => handleTableInformation(user.id)}>
                 <td>{user.nome}</td>
-                <td>{user.email}</td>
+                <td>{user.cpf}</td>
                 <td>{user.tipo_de_pessoa.tipo_de_pessoa}</td>
               </tr>
             ))}

@@ -184,8 +184,8 @@ function ClientInformation() {
       cidade,
       estado
     }
-  }: ClientInformationFormData, { reset }) => {
-    /*
+  }: ClientInformationFormData) => {
+  
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
@@ -246,7 +246,6 @@ function ClientInformation() {
         return
       }
     }
-    */
     
     await api.put('/endereco', {
       id: cliente?.endereco_id,
@@ -278,7 +277,6 @@ function ClientInformation() {
       tipo_de_pessoa_id
     });
     
-    reset();
     history.goBack()
   }, [cliente?.endereco_id, cliente?.id, history]);
 
