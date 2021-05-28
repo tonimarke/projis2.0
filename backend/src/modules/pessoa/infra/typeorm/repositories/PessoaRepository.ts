@@ -1,6 +1,7 @@
 import { Brackets, getRepository, Repository } from 'typeorm';
 import ICreatePessoaDTO from '../../../dtos/ICreatePessoaDTO';
 import IPessoaRepository from '../../../repositories/IPessoaRepository';
+
 import Pessoa from '../entities/Pessoa';
 
 class PessoaRepository implements IPessoaRepository {
@@ -110,9 +111,9 @@ class PessoaRepository implements IPessoaRepository {
     const pessoas = await this.ormRepository.find({
       relations: ['tipo_de_pessoa'],
       where: [
-        { tipo_de_pessoa: { id: '02495f22-6d69-4ec1-8d6f-c4b11b1dd2ce' } },
-        { tipo_de_pessoa: { id: '7ce92b7d-71c8-4ac0-a0cd-a9a3c24a3d6d' } },
-        { tipo_de_pessoa: { id: '818c6262-c4e8-45ff-8303-7718a0231eee' } },
+        { tipo_de_pessoa: { id: '5fac1710-b184-4a2e-9abf-7b1cb241ebd3' } },
+        { tipo_de_pessoa: { id: '8ba04ec1-f3b1-44b5-99ff-8cacb7a9cd0a' } },
+        { tipo_de_pessoa: { id: 'a4f14714-06ed-4824-a7a7-0042f7b3ae6b' } },
       ],
     });
 
@@ -130,16 +131,17 @@ class PessoaRepository implements IPessoaRepository {
       .createQueryBuilder('pessoas')
       .innerJoinAndSelect('pessoas.tipo_de_pessoa', 'tipos_de_pessoas')
       .where([
-        { tipo_de_pessoa: { id: '02495f22-6d69-4ec1-8d6f-c4b11b1dd2ce' } },
-        { tipo_de_pessoa: { id: '7ce92b7d-71c8-4ac0-a0cd-a9a3c24a3d6d' } },
-        { tipo_de_pessoa: { id: '818c6262-c4e8-45ff-8303-7718a0231eee' } },
+        { tipo_de_pessoa: { id: '5fac1710-b184-4a2e-9abf-7b1cb241ebd3' } },
+        { tipo_de_pessoa: { id: '8ba04ec1-f3b1-44b5-99ff-8cacb7a9cd0a' } },
+        { tipo_de_pessoa: { id: 'a4f14714-06ed-4824-a7a7-0042f7b3ae6b' } },
       ])
       .andWhere(
         new Brackets(qb => {
           qb.where(
             `to_tsvector('simple', pessoas.nome) @@ to_tsquery('simple', :query)`,
             { query: `${formattedQuery}:*` },
-          )
+          );
+          /*
             .orWhere(
               `to_tsvector('simple', pessoas.rg) @@ to_tsquery('simple', :query)`,
               { query: `${formattedQuery}:*` },
@@ -147,11 +149,13 @@ class PessoaRepository implements IPessoaRepository {
             .orWhere(
               `to_tsvector('simple', pessoas.cpf) @@ to_tsquery('simple', :query)`,
               { query: `${formattedQuery}:*` },
-            )
+            );
+
             .orWhere(
               `to_tsvector('simple', pessoas.email) @@ to_tsquery('simple', :query)`,
               { query: `${formattedQuery}:*` },
             );
+            */
         }),
       )
       .getMany();
@@ -193,8 +197,10 @@ class PessoaRepository implements IPessoaRepository {
     return pessoa;
   }
 
-  public async save(dataPessoa: ICreatePessoaDTO): Promise<void> {
-    await this.ormRepository.save(dataPessoa);
+  public async save(dataPessoa: Pessoa): Promise<Pessoa> {
+    const savePessoa = await this.ormRepository.save(dataPessoa);
+
+    return savePessoa;
   }
 
   public async delete(id: string): Promise<string> {

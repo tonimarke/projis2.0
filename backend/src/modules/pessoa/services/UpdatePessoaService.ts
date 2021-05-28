@@ -70,9 +70,9 @@ class UpdatePessoaService {
     pessoa.estado_civil_id = estado_civil_id;
     pessoa.tipo_de_pessoa_id = tipo_de_pessoa_id;
 
-    await this.pessoaRepository.save(pessoa);
+    const pessoaSave = await this.pessoaRepository.save(pessoa);
 
-    return pessoa;
+    return pessoaSave;
   }
 }
 

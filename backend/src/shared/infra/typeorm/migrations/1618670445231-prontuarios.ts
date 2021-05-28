@@ -105,7 +105,7 @@ export default class prontuarios1618670445231 implements MigrationInterface {
             columnNames: ['acao_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'acoes',
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
           {
@@ -113,7 +113,7 @@ export default class prontuarios1618670445231 implements MigrationInterface {
             columnNames: ['estagiario_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'pessoas',
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
           {
@@ -121,7 +121,7 @@ export default class prontuarios1618670445231 implements MigrationInterface {
             columnNames: ['encaminhado_por_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'pessoas',
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
           {
@@ -129,7 +129,7 @@ export default class prontuarios1618670445231 implements MigrationInterface {
             columnNames: ['entrevistado_por_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'pessoas',
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
         ],

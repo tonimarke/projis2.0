@@ -13,6 +13,6 @@ export default interface IPessoaRepository {
   findByTypeESA(): Promise<Pessoa[] | undefined>;
   findByTypeESASearch(search: string): Promise<Pessoa[] | undefined>;
   findByEmail(email: string): Promise<Pessoa | undefined>;
-  save(dataPessoa: ICreatePessoaDTO): Promise<void>;
+  save(dataPessoa: ICreatePessoaDTO): Promise<Pessoa>;
   delete(id: string): Promise<string>;
 }

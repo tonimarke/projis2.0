@@ -10,8 +10,6 @@ class FindByTypeESASearchPessoaService {
   }
 
   public async execute(search: string): Promise<Pessoa[]> {
-    console.log(search);
-
     const pessoa = await this.pessoaRepository.findByTypeESASearch(search);
 
     if (!pessoa?.length) {
