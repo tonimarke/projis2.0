@@ -8,6 +8,7 @@ import DeleteAcaoService from '../../../services/DeleteAcaoService';
 
 import AcaoRepository from '../../typeorm/repositories/AcaoRepository';
 import TipoAcaoRepository from '../../../../tipo-acao/infra/typeorm/repositories/TipoAcaoRepository';
+import FindByActionSearchAcaoService from '../../../services/FindByActionSearchAcaoService';
 
 class AcaoController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -58,6 +59,23 @@ class AcaoController {
     const acao = await findOneAcao.execute(id);
 
     return res.json(acao);
+  }
+
+  public async findByActionSearch(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const search = String(req.query.search);
+
+    const acaoRepository = new AcaoRepository();
+
+    const findByActionSearch = new FindByActionSearchAcaoService(
+      acaoRepository,
+    );
+
+    const acoes = await findByActionSearch.execute(search);
+
+    return res.json(acoes);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {

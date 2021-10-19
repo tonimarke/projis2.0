@@ -12,6 +12,20 @@ pessoaRouter.get('/pessoas', pessoaController.findAll);
 
 pessoaRouter.get('/pessoa/:id', pessoaController.findOne);
 
+pessoaRouter.get('/pessoas_type/:name', pessoaController.findByTypePerson);
+
+pessoaRouter.get(
+  '/pessoas_search/:name',
+  pessoaController.findByTypePersonSearch,
+);
+
+pessoaRouter.get('/pessoas_type_esa', pessoaController.findByTypeESA);
+
+pessoaRouter.get(
+  '/pessoas_type_esa_search',
+  pessoaController.findByTypeESASearch,
+);
+
 pessoaRouter.put('/pessoa', pessoaController.update);
 
 pessoaRouter.delete('/pessoa/:id', pessoaController.delete);

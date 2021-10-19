@@ -12,6 +12,11 @@ tipoDePessoaRouter.get('/tipos_de_pessoas', tipoDePessoaController.findAll);
 
 tipoDePessoaRouter.get('/tipo_de_pessoa/:id', tipoDePessoaController.findOne);
 
+tipoDePessoaRouter.get(
+  '/tipo_de_pessoa_by_name/:tipo_de_pessoa',
+  tipoDePessoaController.findByName,
+);
+
 tipoDePessoaRouter.put('/tipo_de_pessoa', tipoDePessoaController.update);
 
 tipoDePessoaRouter.delete('/tipo_de_pessoa/:id', tipoDePessoaController.delete);

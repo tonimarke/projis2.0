@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { Brackets, getRepository, Repository } from 'typeorm';
 import ICreatePessoaDTO from '../../../dtos/ICreatePessoaDTO';
 import IPessoaRepository from '../../../repositories/IPessoaRepository';
 import Pessoa from '../entities/Pessoa';
@@ -34,6 +34,135 @@ class PessoaRepository implements IPessoaRepository {
 
   public async findByEmail(email: string): Promise<Pessoa | undefined> {
     const pessoa = await this.ormRepository.findOne({ where: { email } });
+
+    return pessoa;
+  }
+
+  public async findByTypePerson(name: string): Promise<Pessoa[] | undefined> {
+    const pessoas = await this.ormRepository
+      .createQueryBuilder('pessoas')
+      .innerJoinAndSelect('pessoas.tipo_de_pessoa', 'tipos_de_pessoas')
+      .where('tipos_de_pessoas.tipo_de_pessoa = :tipo_de_pessoa', {
+        tipo_de_pessoa: name,
+      })
+      .getMany();
+
+    return pessoas;
+  }
+
+  public async findByTypePersonSearch(
+    name: string,
+    search: string,
+  ): Promise<Pessoa[] | undefined> {
+    const formattedQuery = search.trim().replace(/ /g, ' & ');
+
+    const pessoa = await this.ormRepository
+      .createQueryBuilder('pessoas')
+      .innerJoinAndSelect('pessoas.tipo_de_pessoa', 'tipos_de_pessoas')
+      .where('tipos_de_pessoas.tipo_de_pessoa = :tipo_de_pessoa', {
+        tipo_de_pessoa: name,
+      })
+      .andWhere(
+        new Brackets(qb => {
+          qb.where(
+            `to_tsvector('simple', pessoas.nome) @@ to_tsquery('simple', :query)`,
+            { query: `${formattedQuery}:*` },
+          )
+            .orWhere(
+              `to_tsvector('simple', pessoas.ocupacao) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            )
+            .orWhere(
+              `to_tsvector('simple', pessoas.rg) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            )
+            .orWhere(
+              `to_tsvector('simple', pessoas.cpf) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            )
+            .orWhere(
+              `to_tsvector('simple', pessoas.email) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            );
+        }),
+      )
+      .getMany();
+
+    return pessoa;
+  }
+
+  public async findByTypeESA(): Promise<Pessoa[] | undefined> {
+    /*
+    const pessoas = await this.ormRepository.query(`
+      SELECT
+      *,
+      tipos_de_pessoas
+      FROM pessoas
+      INNER JOIN tipos_de_pessoas ON pessoas.tipo_de_pessoa_id = tipos_de_pessoas.id
+      WHERE tipos_de_pessoas.tipo_de_pessoa = 'Administrador'
+      OR tipos_de_pessoas.tipo_de_pessoa = 'Supervisor'
+      OR tipos_de_pessoas.tipo_de_pessoa = 'Estagiário'
+    `);
+    */
+
+    /*
+    const pessoas = await this.ormRepository
+      .createQueryBuilder('pessoas')
+      .innerJoinAndSelect('pessoas.tipo_de_pessoa', 'tipos_de_pessoas')
+      .where('tipos_de_pessoas.tipo_de_pessoa = :tipo_de_pessoa', {
+        tipo_de_pessoa: 'Administrador',
+      })
+      .getMany();
+    */
+
+    const pessoas = await this.ormRepository.find({
+      relations: ['tipo_de_pessoa'],
+      where: [
+        { tipo_de_pessoa: { id: '04bb0a33-7f38-4b32-bbb2-aa426187b410' } },
+        { tipo_de_pessoa: { id: '53753f1a-58b5-4152-be2e-a34b020e16c9' } },
+      ],
+    });
+
+    return pessoas;
+  }
+
+  public async findByTypeESASearch(
+    search: string,
+  ): Promise<Pessoa[] | undefined> {
+    const formattedQuery = search.trim().replace(/ /g, ' & ');
+
+    const pessoa = await this.ormRepository
+      .createQueryBuilder('pessoas')
+      .innerJoinAndSelect('pessoas.tipo_de_pessoa', 'tipos_de_pessoas')
+      .where([
+        { tipo_de_pessoa: { id: '88106df0-cb9a-4b7a-9bc1-2a5355bd6f71' } },
+        { tipo_de_pessoa: { id: '8ba04ec1-f3b1-44b5-99ff-8cacb7a9cd0a' } },
+        { tipo_de_pessoa: { id: 'a4f14714-06ed-4824-a7a7-0042f7b3ae6b' } },
+      ])
+      .andWhere(
+        new Brackets(qb => {
+          qb.where(
+            `to_tsvector('simple', pessoas.nome) @@ to_tsquery('simple', :query)`,
+            { query: `${formattedQuery}:*` },
+          );
+          /*
+            .orWhere(
+              `to_tsvector('simple', pessoas.rg) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            )
+            .orWhere(
+              `to_tsvector('simple', pessoas.cpf) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            );
+
+            .orWhere(
+              `to_tsvector('simple', pessoas.email) @@ to_tsquery('simple', :query)`,
+              { query: `${formattedQuery}:*` },
+            );
+            */
+        }),
+      )
+      .getMany();
 
     return pessoa;
   }

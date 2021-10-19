@@ -8,6 +8,7 @@ import DeleteTipoDePessoaService from '../../../services/DeleteTipoDePessoaServi
 
 import TipoDePessoaRepository from '../../typeorm/repositories/TipoDePessoaRepository';
 import PermissaoRepository from '../../../../permissao/infra/typeorm/repositories/PermissaoRepository';
+import FindByNameTipoDePessoaService from '../../../services/FindByNameTipoDePessoaService';
 
 class TipoDePessoaController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -51,6 +52,20 @@ class TipoDePessoaController {
     );
 
     const tipoDePessoa = await findOneTipoDePessoa.execute(id);
+
+    return res.json(tipoDePessoa);
+  }
+
+  public async findByName(req: Request, res: Response): Promise<Response> {
+    const { tipo_de_pessoa } = req.params;
+
+    const tipoDePessoaRepository = new TipoDePessoaRepository();
+
+    const findByNameTipoDePessoa = new FindByNameTipoDePessoaService(
+      tipoDePessoaRepository,
+    );
+
+    const tipoDePessoa = await findByNameTipoDePessoa.execute(tipo_de_pessoa);
 
     return res.json(tipoDePessoa);
   }

@@ -25,7 +25,9 @@ class TipoDePessoaRepository implements ITipoDePessoaRepository {
   }
 
   public async findAll(): Promise<TipoDePessoa[] | undefined> {
-    const tipos = await this.ormRepository.find();
+    const tipos = await this.ormRepository.find({
+      relations: ['permissoes'],
+    });
 
     return tipos;
   }

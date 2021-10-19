@@ -12,6 +12,8 @@ acaoRouter.get('/acoes', acaoController.findAll);
 
 acaoRouter.get('/acao/:id', acaoController.findOne);
 
+acaoRouter.get('/acao_search', acaoController.findByActionSearch);
+
 acaoRouter.put('/acao', acaoController.update);
 
 acaoRouter.delete('/acao/:id', acaoController.delete);

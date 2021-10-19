@@ -2,6 +2,10 @@ import { Request, Response } from 'express';
 import CreatePessoaService from '../../../services/CreatePessoaService';
 import DeletePessoaService from '../../../services/DeletePessoaService';
 import FindAllPessoaService from '../../../services/FindAllPessoaService';
+import FindByTypeESAPessoaService from '../../../services/FindByTypeESAPessoaService';
+import FindByTypeESASearchPessoaService from '../../../services/FindByTypeESASearchPessoaService';
+import FindByTypePersonSearchPessoaService from '../../../services/FindByTypePersonSearchPessoaService';
+import FindByTypePersonPessoaService from '../../../services/FindByTypePersoPessoaService';
 import FindOnePessoaService from '../../../services/FindOnePessoaService';
 import UpdatePessoaService from '../../../services/UpdatePessoaService';
 import PessoaRepository from '../../typeorm/repositories/PessoaRepository';
@@ -85,6 +89,68 @@ class PessoaController {
     const findOnePessoa = new FindOnePessoaService(pessoaRepository);
 
     const pessoa = await findOnePessoa.execute(id);
+
+    return res.json(pessoa);
+  }
+
+  public async findByTypePerson(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { name } = req.params;
+
+    const pessoaRepository = new PessoaRepository();
+
+    const findByTypePerson = new FindByTypePersonPessoaService(
+      pessoaRepository,
+    );
+
+    const pessoa = await findByTypePerson.execute(name);
+
+    return res.json(pessoa);
+  }
+
+  public async findByTypePersonSearch(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { name } = req.params;
+    const search = String(req.query.search);
+
+    const pessoaRepository = new PessoaRepository();
+
+    const findByTypePerson = new FindByTypePersonSearchPessoaService(
+      pessoaRepository,
+    );
+
+    const pessoa = await findByTypePerson.execute(name, search);
+
+    return res.json(pessoa);
+  }
+
+  public async findByTypeESA(req: Request, res: Response): Promise<Response> {
+    const pessoaRepository = new PessoaRepository();
+
+    const findByTypeESA = new FindByTypeESAPessoaService(pessoaRepository);
+
+    const pessoa = await findByTypeESA.execute();
+
+    return res.json(pessoa);
+  }
+
+  public async findByTypeESASearch(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const search = String(req.query.search);
+
+    const pessoaRepository = new PessoaRepository();
+
+    const findByTypeESA = new FindByTypeESASearchPessoaService(
+      pessoaRepository,
+    );
+
+    const pessoa = await findByTypeESA.execute(search);
 
     return res.json(pessoa);
   }

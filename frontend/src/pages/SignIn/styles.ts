@@ -20,6 +20,10 @@ export const Container = styled.div`
       text-align:center;
     }
 
+    div {
+      margin-bottom: 10px;
+    }
+
     button {
       max-width: 140px;
       max-height: 40px;

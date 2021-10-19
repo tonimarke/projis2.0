@@ -20,6 +20,10 @@ export default createGlobalStyle`
     width: 100%;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   a {
     text-decoration: none;
     color: #000000;

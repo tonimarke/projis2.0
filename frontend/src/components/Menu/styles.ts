@@ -26,6 +26,12 @@ export const NavIcons = styled.div`
   margin-bottom: 50px;
 
   svg {
-    margin-top: 50px;
+    margin-top: 45px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: 0.5s;
+    &:hover {
+      background: #bcbaba;
+    }
   }
 `;

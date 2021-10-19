@@ -1,4 +1,7 @@
+import { default as SelectBase } from 'react-select';
 import styled from 'styled-components';
+
+import Tooltip from '../Tooltip';
 
 export const Label = styled.div`
 `;
@@ -23,5 +26,29 @@ export const Container = styled.div`
     flex: 1;
     padding: 5px;
     background: #FFF;
+  }
+`;
+
+export const Select = styled(SelectBase)`
+  &.error {
+    border-color: #C54230
+  }
+`;
+
+export const Error = styled(Tooltip)`
+  height: 20px;
+  margin-left: 16px;
+
+  svg {
+    margin: 0;
+  }
+
+  span {
+    background: #c54230;
+    color: #fff;
+
+    &::before {
+      border-color: #c54230 transparent;
+    }
   }
 `;
